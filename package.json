@@ -21,6 +21,7 @@
         "store2": "^2.12.0",
         "vant": "3.0.6",
         "vue": "^3.0.5",
+        "vue-meta": "^3.0.0-alpha.2",
         "vue-router": "4.0.3",
         "vuex": "4.0.0",
         "windicss": "^2.5.8"

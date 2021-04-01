@@ -79,7 +79,6 @@ async function createServer(root = process.cwd(), isProd = process.env.NODE_ENV 
             res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
         } catch (e) {
             if (vite) vite.ssrFixStacktrace(e)
-            console.log(e.stack)
             res.status(500).end(e.stack)
         }
     })

@@ -1,23 +1,51 @@
 <template>
-    <div class="flex flex-col">
-        <h1>Home</h1>
-        <p>
-            <img src="../assets/logo.png" alt="logo" />
-        </p>
-        <button @click="state.count++">count is: {{ state.count }}</button>
+    <div>
+        <h5>Topics page</h5>
+        <ul class="flex flex-col">
+            <li v-for="(item, index) in topics.data" :key="index">
+                <router-link :to="`/topic?id=${item.c_id}`">{{ item.c_title }}</router-link>
+            </li>
+        </ul>
+        <a @click="getList(topics.page + 1)" href="javascript:;">下一页</a>
     </div>
 </template>
 
-<script setup>
-/* eslint-disable no-unused-vars */
-import { reactive } from 'vue'
+<script>
+import { onMounted, computed } from 'vue'
+import { useStore } from 'vuex'
+import { useRoute } from 'vue-router'
 
-const state = reactive({ count: 0 })
-</script>
+export default {
+    meta: {
+        title: 'Test page title',
+        description: 'Test page description',
+        keywords: 'Test page keywords'
+    },
+    asyncData({ store, route }) {
+        return store.dispatch('topics/getTopics', { path: route.path, page: 1 })
+    },
+    setup() {
+        const route = useRoute()
+        const store = useStore()
 
-<style scoped>
-h1,
-a {
-    color: green;
+        const topics = computed(() => {
+            return store.state.topics.lists
+        })
+
+        const getList = page => {
+            store.dispatch('topics/getTopics', { page, path: route.path })
+        }
+
+        onMounted(() => {
+            if (topics.value.path === '') {
+                getList(1)
+            }
+        })
+
+        return {
+            topics,
+            getList
+        }
+    }
 }
-</style>
+</script>

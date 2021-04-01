@@ -12,6 +12,8 @@ const routes = Object.keys(pages).map(path => {
     }
 })
 
+console.log(routes)
+
 export function createRouter() {
     return _createRouter({
         // use appropriate history implementation for server/client

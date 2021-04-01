@@ -1,7 +1,6 @@
 <template>
     <div>
-        <router-link :to="`/`">home</router-link>| <router-link :to="`/about`">about</router-link>|
-        <router-link :to="`/test`">test</router-link>
+        <div><router-link :to="`/`">home</router-link>| <router-link :to="`/about`">about</router-link></div>
         <router-view v-slot="{ Component }">
             <Suspense>
                 <component :is="Component" />

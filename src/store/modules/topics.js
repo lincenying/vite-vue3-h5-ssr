@@ -9,42 +9,34 @@ const state = () => ({
         data: {},
         path: '',
         isLoad: false
-    },
-    trending: []
+    }
 })
 
 const actions = {
-    async ['getArticleList']({ commit, state, rootState: { $api } }, config) {
+    async ['getTopics']({ commit, state, rootState: { $api } }, config) {
         if (state.lists.data.length > 0 && config.path === state.lists.path && config.page === 1) return
         const { code, data } = await $api.get('ajax/article-list', { ...config, cache: true })
         if (data && code === 200) {
-            commit('receiveArticleList', {
+            commit('receiveTopics', {
                 ...config,
                 ...data
             })
         }
     },
-    async ['getArticleItem']({ commit, state, rootState: { $api } }, config) {
+    async ['getTopic']({ commit, state, rootState: { $api } }, config) {
         if (config.path === state.item.path) return
-        const { code, data } = await $api.get('frontend/article/item', { ...config, markdown: 1, cache: true })
+        const { code, data } = await $api.get('ajax/article-detail', { ...config, markdown: 1, cache: true })
         if (data && code === 200) {
-            commit('receiveArticleItem', {
+            commit('receiveTopic', {
                 data,
                 ...config
             })
-        }
-    },
-    async ['getTrending']({ commit, state, rootState: { $api } }) {
-        if (state.trending.length) return
-        const { code, data } = await $api.get('frontend/trending', { cache: true })
-        if (data && code === 200) {
-            commit('receiveTrending', data)
         }
     }
 }
 
 const mutations = {
-    ['receiveArticleList'](state, { data, current_page, last_page, page, path }) {
+    ['receiveTopics'](state, { data, current_page, last_page, page, path }) {
         if (page === 1) {
             data = [].concat(data)
         } else {
@@ -58,40 +50,21 @@ const mutations = {
             path
         }
     },
-    ['receiveArticleItem'](state, { data, path }) {
+    ['receiveTopic'](state, { data, path }) {
         state.item = {
             data,
             path,
             isLoad: true
         }
-    },
-    ['receiveTrending'](state, data) {
-        state.trending = data.list
-    },
-    ['modifyLikeStatus'](state, { id, status }) {
-        if (state.item.data._id === id) {
-            if (status) state.item.data.like++
-            else state.item.data.like--
-            state.item.data.like_status = status
-        }
-        const obj = state.lists.data.find(item => item._id === id)
-        if (obj) {
-            if (status) obj.like++
-            else obj.like--
-            obj.like_status = status
-        }
     }
 }
 
 const getters = {
-    ['getArticleList'](state) {
+    ['getTopics'](state) {
         return state.lists
     },
-    ['getArticleItem'](state) {
+    ['getTopic'](state) {
         return state.item
-    },
-    ['getTrending'](state) {
-        return state.trending
     }
 }
 
