@@ -14,13 +14,9 @@
 import { onMounted, computed } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
+import { useHead } from '@vueuse/head'
 
 export default {
-    meta: {
-        title: 'Test page title',
-        description: 'Test page description',
-        keywords: 'Test page keywords'
-    },
     asyncData({ store, route }) {
         return store.dispatch('topics/getTopics', { path: route.path, page: 1 })
     },
@@ -30,6 +26,17 @@ export default {
 
         const topics = computed(() => {
             return store.state.topics.lists
+        })
+
+        useHead({
+            // Can be static or computed
+            title: '首页',
+            meta: [
+                {
+                    name: `description`,
+                    content: '首页'
+                }
+            ]
         })
 
         const getList = page => {

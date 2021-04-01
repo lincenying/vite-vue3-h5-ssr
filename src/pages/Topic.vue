@@ -10,6 +10,7 @@
 import { onMounted, computed } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
+import { useHead } from '@vueuse/head'
 
 export default {
     meta: {
@@ -26,6 +27,17 @@ export default {
 
         const topic = computed(() => {
             return store.state.topics.item
+        })
+
+        useHead({
+            // Can be static or computed
+            title: computed(() => topic.value.data.c_title),
+            meta: [
+                {
+                    name: `description`,
+                    content: computed(() => topic.value.data.c_title)
+                }
+            ]
         })
 
         const getDetail = () => {

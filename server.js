@@ -67,14 +67,12 @@ async function createServer(root = process.cwd(), isProd = process.env.NODE_ENV 
                 render = require('./dist/server/entry-server.js').render
             }
 
-            const [appHtml, preloadLinks, meta] = await render(url, manifest, req)
+            const [appHtml, preloadLinks, headTags] = await render(url, manifest, req)
 
             const html = template
                 .replace(`<!--preload-links-->`, preloadLinks)
                 .replace(`<!--app-html-->`, appHtml)
-                .replace(`_title_`, meta.title || '首页')
-                .replace(`_description_`, meta.description || '')
-                .replace(`_keywords_`, meta.keywords || '')
+                .replace(`<!--head-tags-->`, headTags)
 
             res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
         } catch (e) {
@@ -88,8 +86,8 @@ async function createServer(root = process.cwd(), isProd = process.env.NODE_ENV 
 
 if (!isTest) {
     createServer().then(({ app }) =>
-        app.listen(3000, () => {
-            console.log('http://localhost:3000')
+        app.listen(7775, () => {
+            console.log('http://localhost:7775')
         })
     )
 }

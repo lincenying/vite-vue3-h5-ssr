@@ -12,6 +12,7 @@
         "debug": "node --inspect-brk server"
     },
     "dependencies": {
+        "@vueuse/head": "^0.5.1",
         "axios": "^0.21.1",
         "ejs": "^3.1.6",
         "express": "^4.17.1",

@@ -1084,6 +1084,11 @@
   resolved "https://registry.yarnpkg.com/@vue/shared/-/shared-3.0.5.tgz#c131d88bd6713cc4d93b3bb1372edb1983225ff0"
   integrity sha512-gYsNoGkWejBxNO6SNRjOh/xKeZ0H0V+TFzaPzODfBjkAIb0aQgBuixC1brandC/CDJy1wYPwSoYrXpvul7m6yw==
 
+"@vueuse/head@^0.5.1":
+  version "0.5.1"
+  resolved "https://registry.npm.taobao.org/@vueuse/head/download/@vueuse/head-0.5.1.tgz#7d8a31ba4d214fff75c1d0845148d7f0bdf5b68f"
+  integrity sha1-fYoxuk0hT/91wdCEUUjX8L31to8=
+
 "@windicss/plugin-utils@0.11.3":
   version "0.11.3"
   resolved "https://registry.npm.taobao.org/@windicss/plugin-utils/download/@windicss/plugin-utils-0.11.3.tgz#07a7df10b37d4696fe437ed5182f02f18ddc0c32"
