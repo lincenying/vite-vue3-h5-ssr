@@ -12,9 +12,11 @@
         "debug": "node --inspect-brk server"
     },
     "dependencies": {
+        "@vueuse/core": "^4.6.3",
         "@vueuse/head": "^0.5.1",
         "axios": "^0.21.1",
         "ejs": "^3.1.6",
+        "element-plus": "^1.0.2-beta.36",
         "express": "^4.17.1",
         "lodash": "^4.17.21",
         "md5": "^2.3.0",

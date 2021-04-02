@@ -2,6 +2,7 @@ import { createApp } from './main'
 import api from './api/index-client'
 
 import 'virtual:windi.css'
+import '@/assets/scss/style.scss'
 
 const { app, router, store } = createApp()
 

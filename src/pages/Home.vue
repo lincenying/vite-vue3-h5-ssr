@@ -6,15 +6,17 @@
                 <router-link :to="`/topic?id=${item.c_id}`">{{ item.c_title }}</router-link>
             </li>
         </ul>
-        <a @click="getList(topics.page + 1)" href="javascript:;">下一页</a>
+        <a @click="getList(topics.page + 1)" type="success" href="javascript:;">下一页</a>
     </div>
 </template>
 
 <script>
-import { onMounted, computed } from 'vue'
+import { onMounted, onBeforeUnmount, onActivated, computed } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 import { useHead } from '@vueuse/head'
+import { useWindowScroll } from '@vueuse/core'
+import ls from 'store2'
 
 export default {
     asyncData({ store, route }) {
@@ -23,6 +25,8 @@ export default {
     setup() {
         const route = useRoute()
         const store = useStore()
+
+        const currPath = route.path
 
         const topics = computed(() => {
             return store.state.topics.lists
@@ -40,12 +44,27 @@ export default {
         })
 
         const getList = page => {
-            store.dispatch('topics/getTopics', { page, path: route.path })
+            store.dispatch('topics/getTopics', { page, path: currPath })
         }
 
+        const { y } = useWindowScroll()
+
+        onBeforeUnmount(() => {
+            console.log(`onBeforeUnmount`)
+            ls.set(currPath, y.value)
+        })
+        onActivated(() => {
+            console.log(`onActivated`)
+        })
+
         onMounted(() => {
+            console.log(`onMounted`)
             if (topics.value.path === '') {
                 getList(1)
+            } else {
+                const scrollTop = ls.get(currPath)
+                ls.remove(currPath)
+                window.scrollTo(0, scrollTop)
             }
         })
 

@@ -3,6 +3,8 @@ import { createHead } from '@vueuse/head'
 import { createRouter } from './router'
 import { createStore } from './store'
 
+import { ElButton } from 'element-plus'
+
 import App from './App.vue'
 
 // SSR requires a fresh app instance per request, therefore we export a function
@@ -13,6 +15,6 @@ export function createApp() {
     const router = createRouter()
     const store = createStore()
     const head = createHead()
-    app.use(store).use(router).use(head)
+    app.use(store).use(router).use(head).use(ElButton)
     return { app, router, store, head }
 }
