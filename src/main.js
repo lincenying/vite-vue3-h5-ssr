@@ -15,6 +15,7 @@ export function createApp() {
     const router = createRouter()
     const store = createStore()
     const head = createHead()
+    app.config.globalProperties.$ELEMENT = { size: 'small', zIndex: 3000 }
     app.use(store).use(router).use(head).use(ElButton)
     return { app, router, store, head }
 }
