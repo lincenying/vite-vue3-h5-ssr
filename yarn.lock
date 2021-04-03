@@ -1628,6 +1628,11 @@ core-js-compat@^3.8.1, core-js-compat@^3.9.0:
     browserslist "^4.16.3"
     semver "7.0.0"
 
+core-js@^3.10.0:
+  version "3.10.0"
+  resolved "https://registry.npm.taobao.org/core-js/download/core-js-3.10.0.tgz?cache=0&sync_timestamp=1617181747628&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcore-js%2Fdownload%2Fcore-js-3.10.0.tgz#9a020547c8b6879f929306949e31496bbe2ae9b3"
+  integrity sha1-mgIFR8i2h5+SkwaUnjFJa74q6bM=
+
 cosmiconfig@^7.0.0:
   version "7.0.0"
   resolved "https://registry.npm.taobao.org/cosmiconfig/download/cosmiconfig-7.0.0.tgz#ef9b44d773959cae63ddecd122de23853b60f8d3"
