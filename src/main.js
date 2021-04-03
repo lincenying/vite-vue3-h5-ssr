@@ -2,8 +2,7 @@ import { createSSRApp } from 'vue'
 import { createHead } from '@vueuse/head'
 import { createRouter } from './router'
 import { createStore } from './store'
-
-import { ElButton } from 'element-plus'
+import ElConfig from './config/element'
 
 import App from './App.vue'
 
@@ -16,6 +15,7 @@ export function createApp() {
     const store = createStore()
     const head = createHead()
     app.config.globalProperties.$ELEMENT = { size: 'small', zIndex: 3000 }
-    app.use(store).use(router).use(head).use(ElButton)
+    app.use(store).use(router).use(head)
+    ElConfig(app)
     return { app, router, store, head }
 }

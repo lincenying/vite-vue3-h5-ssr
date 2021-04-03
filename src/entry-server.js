@@ -42,7 +42,7 @@ export async function render(url, manifest, req) {
         // context.throw(404, "Not Found");
     }
 
-    store.$api = store.state.$api = api(req.cookies)
+    store.$api = store.state.$api = api(req && req.cookies)
 
     const matchedComponents = router.currentRoute.value.matched.flatMap(record => Object.values(record.components))
 

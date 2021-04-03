@@ -1,8 +1,10 @@
 <template>
     <div>
-        <h5>Topic page</h5>
-        <h6>{{ topic.data.c_title }}</h6>
-        <div class="content" v-html="topic.data.c_content"></div>
+        <div v-loading="loading">
+            <h5>Topic page</h5>
+            <h6>{{ topic.data.c_title }}</h6>
+            <div class="content" v-html="topic.data.c_content"></div>
+        </div>
     </div>
 </template>
 
@@ -11,13 +13,9 @@ import { onMounted, computed } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 import { useHead } from '@vueuse/head'
+import { useToggle } from '@vueuse/core'
 
 export default {
-    meta: {
-        title: 'Test page title',
-        description: 'Test page description',
-        keywords: 'Test page keywords'
-    },
     asyncData({ store, route }) {
         return store.dispatch('topics/getTopic', { path: route.fullPath, id: route.query.id })
     },
@@ -28,6 +26,8 @@ export default {
         const topic = computed(() => {
             return store.state.topics.item
         })
+
+        const [loading, toggleLoading] = useToggle(false)
 
         useHead({
             // Can be static or computed
@@ -40,8 +40,10 @@ export default {
             ]
         })
 
-        const getDetail = () => {
-            store.dispatch('topics/getTopic', { id: route.query.id, path: route.fullPath })
+        const getDetail = async () => {
+            toggleLoading(true)
+            await store.dispatch('topics/getTopic', { id: route.query.id, path: route.fullPath })
+            toggleLoading(false)
         }
 
         onMounted(() => {
@@ -51,6 +53,7 @@ export default {
         })
 
         return {
+            loading,
             topic
         }
     }

@@ -4,6 +4,7 @@ import md5 from 'md5'
 import config from './config-server'
 
 const objToStr = cookies => {
+    if (!cookies) return ''
     let cookie = ''
     Object.keys(cookies).forEach(item => {
         cookie += item + '=' + cookies[item] + '; '

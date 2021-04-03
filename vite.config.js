@@ -4,6 +4,13 @@ import styleImport from 'vite-plugin-style-import'
 import vue from '@vitejs/plugin-vue'
 import WindiCSS from 'vite-plugin-windicss'
 
+export const ssrTransformCustomDir = () => {
+    return {
+        props: [],
+        needRuntime: true
+    }
+}
+
 // https://vitejs.dev/config/
 export default () => {
     const config = {
@@ -27,7 +34,16 @@ export default () => {
                 ],
                 plugins: ['@babel/plugin-proposal-class-properties']
             }),
-            vue(),
+            vue({
+                template: {
+                    ssr: true,
+                    compilerOptions: {
+                        directiveTransforms: {
+                            loading: ssrTransformCustomDir
+                        }
+                    }
+                }
+            }),
             styleImport({
                 libs: [
                     {
