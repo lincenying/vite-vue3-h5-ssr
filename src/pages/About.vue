@@ -11,7 +11,9 @@ import { useHead } from '@vueuse/head'
 
 export default {
     async setup() {
-        const { ctx } = getCurrentInstance()
+        const ins = getCurrentInstance()
+        // eslint-disable-next-line no-unused-vars
+        const $ctx = ins.appContext.config.globalProperties
 
         useHead({
             // Can be static or computed
@@ -26,10 +28,10 @@ export default {
 
         const msg = ref('About')
         const handleDialog = () => {
-            ctx.$alert('这是一段内容', '标题名称', {
+            $ctx.$alert('这是一段内容', '标题名称', {
                 confirmButtonText: '确定',
                 callback: action => {
-                    ctx.$message({
+                    $ctx.$message({
                         type: 'info',
                         message: `action: ${action}`
                     })
