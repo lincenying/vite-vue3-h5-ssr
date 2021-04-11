@@ -1,5 +1,5 @@
 const path = require('path')
-import { getBabelOutputPlugin } from '@rollup/plugin-babel'
+// import { getBabelOutputPlugin } from '@rollup/plugin-babel'
 import styleImport from 'vite-plugin-style-import'
 import vue from '@vitejs/plugin-vue'
 import WindiCSS from 'vite-plugin-windicss'
@@ -22,18 +22,18 @@ export default () => {
             }
         },
         plugins: [
-            getBabelOutputPlugin({
-                presets: [
-                    [
-                        '@babel/preset-env',
-                        {
-                            useBuiltIns: 'usage',
-                            corejs: '3'
-                        }
-                    ]
-                ],
-                plugins: ['@babel/plugin-proposal-class-properties']
-            }),
+            // getBabelOutputPlugin({
+            //     presets: [
+            //         [
+            //             '@babel/preset-env',
+            //             {
+            //                 useBuiltIns: 'usage',
+            //                 corejs: '3'
+            //             }
+            //         ]
+            //     ],
+            //     plugins: ['@babel/plugin-proposal-class-properties']
+            // }),
             vue({
                 template: {
                     ssr: true,
