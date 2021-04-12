@@ -52,15 +52,15 @@ export default {
         const { y } = useWindowScroll()
 
         onBeforeUnmount(() => {
-            console.log(`onBeforeUnmount`)
+            console.log(`Home onBeforeUnmount`)
             ls.set(currPath, y.value)
         })
         onActivated(() => {
-            console.log(`onActivated`)
+            console.log(`Home onActivated`)
         })
 
         onMounted(() => {
-            console.log(`onMounted`)
+            console.log(`Home onMounted`)
             if (topics.value.path === '') {
                 getList(1)
             } else {

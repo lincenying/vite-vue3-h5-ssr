@@ -14,5 +14,6 @@ router.isReady().then(() => {
 
 if (window.__INITIAL_STATE__) {
     store.replaceState(window.__INITIAL_STATE__)
-    store.$api = store.state.$api = api
 }
+
+store.$api = store.state.$api = api

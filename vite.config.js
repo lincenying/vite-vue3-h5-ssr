@@ -1,8 +1,10 @@
 const path = require('path')
-// import { getBabelOutputPlugin } from '@rollup/plugin-babel'
-import styleImport from 'vite-plugin-style-import'
+const vueJsx = require('@vitejs/plugin-vue-jsx')
+
 import vue from '@vitejs/plugin-vue'
 import WindiCSS from 'vite-plugin-windicss'
+import { getBabelOutputPlugin } from '@rollup/plugin-babel'
+import styleImport from 'vite-plugin-style-import'
 
 export const ssrTransformCustomDir = () => {
     return {
@@ -22,18 +24,7 @@ export default () => {
             }
         },
         plugins: [
-            // getBabelOutputPlugin({
-            //     presets: [
-            //         [
-            //             '@babel/preset-env',
-            //             {
-            //                 useBuiltIns: 'usage',
-            //                 corejs: '3'
-            //             }
-            //         ]
-            //     ],
-            //     plugins: ['@babel/plugin-proposal-class-properties']
-            // }),
+            getBabelOutputPlugin(),
             vue({
                 template: {
                     ssr: true,
@@ -44,6 +35,7 @@ export default () => {
                     }
                 }
             }),
+            vueJsx(),
             styleImport({
                 libs: [
                     {

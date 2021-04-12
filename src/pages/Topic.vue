@@ -47,6 +47,7 @@ export default {
         }
 
         onMounted(() => {
+            console.log(`Topic onMounted`)
             if (topic.value.path !== route.fullPath) {
                 getDetail()
             }

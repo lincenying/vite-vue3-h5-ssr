@@ -1,48 +1,42 @@
 <template>
     <div>
         <h1>{{ msg }}</h1>
+        <Foo></Foo>
         <div><el-button type="text" @click="handleDialog">点击打开 Message Box</el-button></div>
     </div>
 </template>
 
-<script>
-import { ref, getCurrentInstance } from 'vue'
+<script setup>
+/* eslint-disable no-unused-vars */
+import { ref, getCurrentInstance, defineAsyncComponent } from 'vue'
 import { useHead } from '@vueuse/head'
 
-export default {
-    async setup() {
-        const ins = getCurrentInstance()
-        // eslint-disable-next-line no-unused-vars
-        const $ctx = ins.appContext.config.globalProperties
+const ins = getCurrentInstance()
+const ctx = ins.appContext.config.globalProperties
 
-        useHead({
-            // Can be static or computed
-            title: '关于',
-            meta: [
-                {
-                    name: `description`,
-                    content: '关于'
-                }
-            ]
-        })
+useHead({
+    // Can be static or computed
+    title: '关于',
+    meta: [
+        {
+            name: `description`,
+            content: '关于'
+        }
+    ]
+})
 
-        const msg = ref('About')
-        const handleDialog = () => {
-            $ctx.$alert('这是一段内容', '标题名称', {
-                confirmButtonText: '确定',
-                callback: action => {
-                    $ctx.$message({
-                        type: 'info',
-                        message: `action: ${action}`
-                    })
-                }
+const Foo = defineAsyncComponent(() => import('../components/Foo').then(mod => mod.Foo))
+const msg = ref('About: SFC组件')
+const handleDialog = () => {
+    ctx.$alert('这是一段内容', '标题名称', {
+        confirmButtonText: '确定',
+        callback: action => {
+            ctx.$message({
+                type: 'info',
+                message: `action: ${action}`
             })
         }
-        return {
-            msg,
-            handleDialog
-        }
-    }
+    })
 }
 </script>
 
