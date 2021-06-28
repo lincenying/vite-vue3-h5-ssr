@@ -84,9 +84,14 @@ async function createServer(root = process.cwd(), isProd = process.env.NODE_ENV 
     return { app, vite }
 }
 
+let port = 7775
+if (process.env.NODE_ENV !== 'production') {
+    port = 17775
+}
+
 if (!isTest) {
     createServer().then(({ app }) =>
-        app.listen(7775, () => {
+        app.listen(port, () => {
             console.log('http://localhost:7775')
         })
     )

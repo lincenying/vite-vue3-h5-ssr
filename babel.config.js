@@ -8,17 +8,5 @@ module.exports = {
             }
         ]
     ],
-    plugins: [
-        [
-            'import',
-            {
-                libraryName: 'vant',
-                libraryDirectory: 'es',
-                style: true
-            },
-            'vant'
-        ],
-        '@vue/babel-plugin-jsx',
-        '@babel/plugin-proposal-class-properties'
-    ]
+    plugins: ['@vue/babel-plugin-jsx', '@babel/plugin-proposal-class-properties']
 }

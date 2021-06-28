@@ -1,6 +1,7 @@
 const path = require('path')
 const vueJsx = require('@vitejs/plugin-vue-jsx')
 
+import { loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import WindiCSS from 'vite-plugin-windicss'
 import { getBabelOutputPlugin } from '@rollup/plugin-babel'
@@ -14,7 +15,9 @@ export const ssrTransformCustomDir = () => {
 }
 
 // https://vitejs.dev/config/
-export default () => {
+export default ({ mode }) => {
+    process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
+
     const config = {
         css: {
             preprocessorOptions: {
