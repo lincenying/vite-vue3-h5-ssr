@@ -81,6 +81,7 @@ async function createServer(root = process.cwd(), isProd = process.env.NODE_ENV 
         }
     })
 
+    // @ts-ignore
     return { app, vite }
 }
 
@@ -92,7 +93,7 @@ if (process.env.NODE_ENV !== 'production') {
 if (!isTest) {
     createServer().then(({ app }) =>
         app.listen(port, () => {
-            console.log('http://localhost:7775')
+            console.log('http://localhost:' + port)
         })
     )
 }

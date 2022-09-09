@@ -15,7 +15,7 @@ const state = () => ({
 const actions = {
     async ['getTopics']({ commit, state, rootState: { $api } }, config) {
         if (state.lists.data.length > 0 && config.path === state.lists.path && config.page === 1) return
-        const { code, data } = await $api.get('ajax/article-list', { ...config, cache: true, perPage: 30 })
+        const { code, data } = await $api.get('article/lists', { ...config, cache: true, perPage: 30 })
         if (data && code === 200) {
             commit('receiveTopics', {
                 ...config,
@@ -25,7 +25,7 @@ const actions = {
     },
     async ['getTopic']({ commit, state, rootState: { $api } }, config) {
         if (config.path === state.item.path) return
-        const { code, data } = await $api.get('ajax/article-detail', { ...config, markdown: 1, cache: true })
+        const { code, data } = await $api.get('article/detail/' + config.id, { ...config, markdown: 1, cache: true })
         if (data && code === 200) {
             commit('receiveTopic', {
                 data,
