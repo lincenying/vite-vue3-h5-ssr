@@ -2,7 +2,7 @@
     <div>
         <h1>{{ msg }}</h1>
         <Foo></Foo>
-        <div><el-button type="text" @click="handleDialog">点击打开 Message Box</el-button></div>
+        <div><el-button @click="handleDialog">点击打开 Message Box</el-button></div>
     </div>
 </template>
 

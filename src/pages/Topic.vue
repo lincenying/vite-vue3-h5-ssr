@@ -16,9 +16,6 @@ import { useHead } from '@vueuse/head'
 import { useToggle } from '@vueuse/core'
 
 export default {
-    asyncData({ store, route }) {
-        return store.dispatch('topics/getTopic', { path: route.fullPath, id: route.query.id })
-    },
     setup() {
         const route = useRoute()
         const store = useStore()
@@ -57,6 +54,9 @@ export default {
             loading,
             topic
         }
+    },
+    asyncData({ store, route }) {
+        return store.dispatch('topics/getTopic', { path: route.fullPath, id: route.query.id })
     }
 }
 </script>

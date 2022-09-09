@@ -1,11 +1,11 @@
-const path = require('path')
-const vueJsx = require('@vitejs/plugin-vue-jsx')
+import path from 'node:path'
+import vueJsx from '@vitejs/plugin-vue-jsx'
 
 import { loadEnv } from 'vite'
-import vue from '@vitejs/plugin-vue'
+import vuePlugin from '@vitejs/plugin-vue'
 import WindiCSS from 'vite-plugin-windicss'
 import { getBabelOutputPlugin } from '@rollup/plugin-babel'
-import styleImport from 'vite-plugin-style-import'
+import { createStyleImportPlugin, AndDesignVueResolve, VantResolve, ElementPlusResolve, NutuiResolve, AntdResolve } from 'vite-plugin-style-import'
 
 export const ssrTransformCustomDir = () => {
     return {
@@ -15,7 +15,7 @@ export const ssrTransformCustomDir = () => {
 }
 
 // https://vitejs.dev/config/
-export default ({ mode }) => {
+export default ({ mode, command, ssrBuild }) => {
     process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
 
     const config = {
@@ -28,50 +28,27 @@ export default ({ mode }) => {
         },
         plugins: [
             getBabelOutputPlugin(),
-            vue({
-                template: {
-                    ssr: true,
-                    compilerOptions: {
-                        directiveTransforms: {
-                            loading: ssrTransformCustomDir
-                        }
+            vuePlugin(),
+            vueJsx(),
+            {
+                name: 'virtual',
+                resolveId(id) {
+                    if (id === '@foo') {
+                        return id
+                    }
+                },
+                load(id, options) {
+                    const ssrFromOptions = options?.ssr ?? false
+                    if (id === '@foo') {
+                        // Force a mismatch error if ssrBuild is different from ssrFromOptions
+                        return `export default { msg: '${
+                            command === 'build' && !!ssrBuild !== ssrFromOptions ? `defineConfig ssrBuild !== ssr from load options` : 'hi'
+                        }' }`
                     }
                 }
-            }),
-            vueJsx(),
-            styleImport({
-                libs: [
-                    {
-                        libraryName: 'ant-design-vue',
-                        esModule: true,
-                        resolveStyle: name => {
-                            return `ant-design-vue/es/${name}/style/index`
-                        }
-                    },
-                    {
-                        libraryName: 'antd',
-                        esModule: true,
-                        resolveStyle: name => {
-                            return `antd/es/${name}/style/index`
-                        }
-                    },
-                    {
-                        libraryName: 'vant',
-                        esModule: true,
-                        resolveStyle: name => {
-                            return `vant/es/${name}/style/index`
-                        }
-                    },
-                    {
-                        libraryName: 'element-plus',
-                        resolveStyle: name => {
-                            return `element-plus/lib/theme-chalk/${name}.css`
-                        },
-                        resolveComponent: name => {
-                            return `element-plus/lib/${name}`
-                        }
-                    }
-                ]
+            },
+            createStyleImportPlugin({
+                resolves: [AndDesignVueResolve(), VantResolve(), ElementPlusResolve(), NutuiResolve(), AntdResolve()]
             }),
             WindiCSS({
                 safelist: 'prose prose-sm m-auto text-left'
@@ -81,6 +58,11 @@ export default ({ mode }) => {
             alias: {
                 '@': path.join(__dirname, './src')
             }
+        },
+        ssr: {
+            noExternal: [
+                // this package has uncompiled .vue files
+            ]
         },
         server: {
             port: 7775,

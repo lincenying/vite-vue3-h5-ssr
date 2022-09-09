@@ -1,6 +1,6 @@
 // const pxtorem = require('postcss-pxtorem')
 
-module.exports = () => {
+export default () => {
     return {
         plugins: [
             // pxtorem({

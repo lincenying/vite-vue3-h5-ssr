@@ -1,19 +1,21 @@
 // @ts-check
-const fs = require('fs')
-const path = require('path')
-const express = require('express')
-const cookieParser = require('cookie-parser')
-const ejs = require('ejs')
+import fs from 'node:fs'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+import express from 'express'
+import cookieParser from 'cookie-parser'
+import ejs from 'ejs'
 
 const isTest = process.env.NODE_ENV === 'test' || !!process.env.VITE_TEST_BUILD
 
-async function createServer(root = process.cwd(), isProd = process.env.NODE_ENV === 'production') {
+export async function createServer(root = process.cwd(), isProd = process.env.NODE_ENV === 'production', hmrPort) {
+    const __dirname = path.dirname(fileURLToPath(import.meta.url))
     const resolve = p => path.resolve(__dirname, p)
 
     const indexProd = isProd ? fs.readFileSync(resolve('dist/client/index.html'), 'utf-8') : ''
 
     // @ts-ignore
-    const manifest = isProd ? require('./dist/client/ssr-manifest.json') : {}
+    const manifest = isProd ? (await import('./dist/client/ssr-manifest.json')).default : {}
 
     const app = express()
 
@@ -22,19 +24,33 @@ async function createServer(root = process.cwd(), isProd = process.env.NODE_ENV 
      */
     let vite
     if (!isProd) {
-        vite = await require('vite').createServer({
+        vite = await (
+            await import('vite')
+        ).createServer({
+            base: '/test/',
             root,
             logLevel: isTest ? 'error' : 'info',
             server: {
-                middlewareMode: true
-            }
+                middlewareMode: true,
+                watch: {
+                    // During tests we edit the files too fast and sometimes chokidar
+                    // misses change events, so enforce polling for consistency
+                    usePolling: true,
+                    interval: 100
+                },
+                hmr: {
+                    port: hmrPort
+                }
+            },
+            appType: 'custom'
         })
         // use vite's connect instance as middleware
         app.use(vite.middlewares)
     } else {
-        app.use(require('compression')())
+        app.use((await import('compression')).default())
         app.use(
-            require('serve-static')(resolve('dist/client'), {
+            '/test/',
+            (await import('serve-static')).default(resolve('dist/client'), {
                 index: false
             })
         )
@@ -53,7 +69,7 @@ async function createServer(root = process.cwd(), isProd = process.env.NODE_ENV 
 
     app.use('*', async (req, res) => {
         try {
-            const url = req.originalUrl
+            const url = req.originalUrl.replace('/test/', '/')
 
             let template, render
             if (!isProd) {
@@ -64,10 +80,10 @@ async function createServer(root = process.cwd(), isProd = process.env.NODE_ENV 
             } else {
                 template = indexProd
                 // @ts-ignore
-                render = require('./dist/server/entry-server.js').render
+                render = (await import('./dist/server/entry-server.js')).render
             }
 
-            const [appHtml, preloadLinks, headTags] = await render(url, manifest, req)
+            const [appHtml, preloadLinks, headTags] = await render(url, manifest)
 
             const html = template
                 .replace(`<!--preload-links-->`, preloadLinks)
@@ -76,7 +92,9 @@ async function createServer(root = process.cwd(), isProd = process.env.NODE_ENV 
 
             res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
         } catch (e) {
-            if (vite) vite.ssrFixStacktrace(e)
+            // eslint-disable-next-line no-unused-expressions
+            vite && vite.ssrFixStacktrace(e)
+            console.log(e.stack)
             res.status(500).end(e.stack)
         }
     })
@@ -97,6 +115,3 @@ if (!isTest) {
         })
     )
 }
-
-// for test use
-exports.createServer = createServer
