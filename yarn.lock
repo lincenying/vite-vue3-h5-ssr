@@ -4570,6 +4570,15 @@ style-search@^0.1.0:
   resolved "https://registry.npmmirror.com/style-search/-/style-search-0.1.0.tgz#7958c793e47e32e07d2b5cafe5c0bf8e12e77902"
   integrity sha512-Dj1Okke1C3uKKwQcetra4jSuk0DqbzbYtXipzFlFMZtowbF1x7BKJwB9AayVMyFARvU8EDrZdcax4At/452cAg==
 
+stylelint-config-lcy@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmmirror.com/stylelint-config-lcy/-/stylelint-config-lcy-1.0.0.tgz#e5341d9b2e652c2829b488bafbb1b827912a2f0d"
+  integrity sha512-qc0/CbEhxG+6WJI8zw612ppynw75KiH9kXrGVpLs8CdugwpHiz+f9jeFXuwP99EtTigEtf4TIStAivyw5FZw4g==
+  dependencies:
+    stylelint "^14.11.0"
+    stylelint-config-standard-scss "^5.0.0"
+    stylelint-order "^5.0.0"
+
 stylelint-config-recommended-scss@^7.0.0:
   version "7.0.0"
   resolved "https://registry.npmmirror.com/stylelint-config-recommended-scss/-/stylelint-config-recommended-scss-7.0.0.tgz#db16b6ae6055e72e3398916c0f13d6eb685902a2"
