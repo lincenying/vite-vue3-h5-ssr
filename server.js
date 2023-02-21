@@ -83,7 +83,7 @@ export async function createServer(root = process.cwd(), isProd = process.env.NO
                 render = (await import('./dist/server/entry-server.js')).render
             }
 
-            const [appHtml, preloadLinks, headTags] = await render(url, manifest)
+            const [appHtml, preloadLinks, headTags] = await render(url, manifest, req)
 
             const html = template
                 .replace(`<!--preload-links-->`, preloadLinks)

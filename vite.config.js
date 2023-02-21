@@ -6,6 +6,7 @@ import vuePlugin from '@vitejs/plugin-vue'
 import WindiCSS from 'vite-plugin-windicss'
 import { getBabelOutputPlugin } from '@rollup/plugin-babel'
 import { createStyleImportPlugin, AndDesignVueResolve, VantResolve, ElementPlusResolve, NutuiResolve, AntdResolve } from 'vite-plugin-style-import'
+import vueSetupExtend from 'vite-plugin-vue-setup-extend'
 
 export const ssrTransformCustomDir = () => {
     return {
@@ -30,6 +31,7 @@ export default ({ mode, command, ssrBuild }) => {
             getBabelOutputPlugin(),
             vuePlugin(),
             vueJsx(),
+            vueSetupExtend(),
             {
                 name: 'virtual',
                 resolveId(id) {

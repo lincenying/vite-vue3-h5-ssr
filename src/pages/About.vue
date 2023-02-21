@@ -6,13 +6,17 @@
     </div>
 </template>
 
-<script setup>
-/* eslint-disable no-unused-vars */
-import { ref, getCurrentInstance, defineAsyncComponent } from 'vue'
+<script>
+import { defineAsyncComponent } from 'vue'
 import { useHead } from '@vueuse/head'
 
-const ins = getCurrentInstance()
-const ctx = ins.appContext.config.globalProperties
+import useGlobal from '@/mixins/global'
+
+export default {}
+</script>
+<script setup name="about">
+// eslint-disable-next-line no-unused-vars
+const { ctx, options, proxy, route, router, storeToRefs, globalStore, ref, reactive, useToggle, useLockFn } = useGlobal()
 
 useHead({
     // Can be static or computed

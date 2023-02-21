@@ -181,4 +181,6 @@ export default app => {
     plugins.forEach(plugin => {
         app.use(plugin)
     })
+
+    return app
 }

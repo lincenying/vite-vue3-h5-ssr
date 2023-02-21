@@ -1,7 +1,8 @@
 import { createSSRApp } from 'vue'
 import { createHead } from '@vueuse/head'
+import { createPinia } from 'pinia'
+
 import { createRouter } from './router'
-import { createStore } from './store'
 import ElConfig from './config/element'
 
 import App from './App.vue'
@@ -14,10 +15,9 @@ console.log('当前环境: ' + import.meta.env.VITE_APP_ENV)
 export function createApp() {
     const app = createSSRApp(App)
     const router = createRouter()
-    const store = createStore()
+    const store = createPinia()
     const head = createHead()
     app.config.globalProperties.$ELEMENT = { size: 'small', zIndex: 3000 }
-    app.use(store).use(router).use(head)
-    ElConfig(app)
+    ElConfig(app).use(store).use(router).use(head)
     return { app, router, store, head }
 }

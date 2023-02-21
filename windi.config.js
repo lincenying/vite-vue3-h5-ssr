@@ -1,5 +1,11 @@
-module.exports = {
-    purge: ['./src/**/*.vue'],
+export default {
+    attributify: {
+        prefix: 'w-'
+    },
+    extract: {
+        include: ['index.html', 'src/**/*.{vue,html,jsx,tsx}'],
+        exclude: ['node_modules/**/*', '.git/**/*', './**/*.js']
+    },
     theme: {
         screens: false,
         colors: {
