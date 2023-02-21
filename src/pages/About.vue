@@ -2,6 +2,7 @@
     <div>
         <h1>{{ msg }}</h1>
         <Foo></Foo>
+        <Bar page="我也是来自jsx"></Bar>
         <div><el-button @click="handleDialog">点击打开 Message Box</el-button></div>
     </div>
 </template>
@@ -11,6 +12,8 @@ import { defineAsyncComponent } from 'vue'
 import { useHead } from '@vueuse/head'
 
 import useGlobal from '@/mixins/global'
+
+import Bar from '../components/Bar'
 
 export default {}
 </script>
@@ -30,7 +33,9 @@ useHead({
 })
 
 const Foo = defineAsyncComponent(() => import('../components/Foo').then(mod => mod.Foo))
+
 const msg = ref('About: SFC组件')
+
 const handleDialog = () => {
     ctx.$alert('这是一段内容', '标题名称', {
         confirmButtonText: '确定',

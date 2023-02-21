@@ -1,8 +1,7 @@
 import path from 'node:path'
-import vueJsx from '@vitejs/plugin-vue-jsx'
-
 import { loadEnv } from 'vite'
 import vuePlugin from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx'
 import WindiCSS from 'vite-plugin-windicss'
 // import { getBabelOutputPlugin } from '@rollup/plugin-babel'
 import { createStyleImportPlugin, AndDesignVueResolve, VantResolve, ElementPlusResolve, NutuiResolve, AntdResolve } from 'vite-plugin-style-import'
