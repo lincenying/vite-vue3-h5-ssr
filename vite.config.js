@@ -4,7 +4,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import { loadEnv } from 'vite'
 import vuePlugin from '@vitejs/plugin-vue'
 import WindiCSS from 'vite-plugin-windicss'
-import { getBabelOutputPlugin } from '@rollup/plugin-babel'
+// import { getBabelOutputPlugin } from '@rollup/plugin-babel'
 import { createStyleImportPlugin, AndDesignVueResolve, VantResolve, ElementPlusResolve, NutuiResolve, AntdResolve } from 'vite-plugin-style-import'
 import vueSetupExtend from 'vite-plugin-vue-setup-extend'
 
@@ -28,7 +28,7 @@ export default ({ mode, command, ssrBuild }) => {
             }
         },
         plugins: [
-            getBabelOutputPlugin(),
+            // getBabelOutputPlugin(),
             vuePlugin(),
             vueJsx(),
             vueSetupExtend(),
