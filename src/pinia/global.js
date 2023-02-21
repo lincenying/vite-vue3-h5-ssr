@@ -15,7 +15,7 @@ const useStore = defineStore('globalStore', {
                 visible: false,
                 url: ''
             },
-            ISLocal: import.meta.env.VITE_APP_ENV === 'development' || window.location.href.indexOf('192.168') > -1,
+            ISLocal: import.meta.env.VITE_APP_ENV === 'development',
             ISDEV: import.meta.env.VITE_APP_ENV === 'development',
             ISPRE: import.meta.env.VITE_APP_ENV === 'pre-release',
             ISPROD: import.meta.env.VITE_APP_ENV === 'production'

@@ -5,6 +5,8 @@ import { fileURLToPath } from 'node:url'
 import express from 'express'
 import cookieParser from 'cookie-parser'
 import ejs from 'ejs'
+import { createServer as viteCreateServer } from 'vite'
+import { createProxyMiddleware } from 'http-proxy-middleware'
 
 const isTest = process.env.NODE_ENV === 'test' || !!process.env.VITE_TEST_BUILD
 
@@ -15,7 +17,7 @@ export async function createServer(root = process.cwd(), isProd = process.env.NO
     const indexProd = isProd ? fs.readFileSync(resolve('dist/client/index.html'), 'utf-8') : ''
 
     // @ts-ignore
-    const manifest = isProd ? (await import('./dist/client/ssr-manifest.json')).default : {}
+    const manifest = isProd ? JSON.parse(fs.readFileSync(resolve('dist/client/ssr-manifest.json'), 'utf-8')) : {}
 
     const app = express()
 
@@ -24,10 +26,8 @@ export async function createServer(root = process.cwd(), isProd = process.env.NO
      */
     let vite
     if (!isProd) {
-        vite = await (
-            await import('vite')
-        ).createServer({
-            base: '/test/',
+        vite = await viteCreateServer({
+            base: '/',
             root,
             logLevel: isTest ? 'error' : 'info',
             server: {
@@ -49,7 +49,16 @@ export async function createServer(root = process.cwd(), isProd = process.env.NO
     } else {
         app.use((await import('compression')).default())
         app.use(
-            '/test/',
+            '/api',
+            createProxyMiddleware({
+                target: 'http://php.mmxiaowu.com',
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/api': '/api'
+                }
+            })
+        )
+        app.use(
             (await import('serve-static')).default(resolve('dist/client'), {
                 index: false
             })
@@ -69,7 +78,8 @@ export async function createServer(root = process.cwd(), isProd = process.env.NO
 
     app.use('*', async (req, res) => {
         try {
-            const url = req.originalUrl.replace('/test/', '/')
+            // const url = req.originalUrl.replace('/test/', '/')
+            const url = req.originalUrl
 
             let template, render
             if (!isProd) {

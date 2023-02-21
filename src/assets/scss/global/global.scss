@@ -48,6 +48,7 @@ body {
     // height: 100vh;
     // padding-bottom: var(--tabbar-height);
     height: 100vh;
+    height: calc(100vh - 140px);
     max-width: 540PX;
     min-width: 320PX;
     overflow-y: scroll;

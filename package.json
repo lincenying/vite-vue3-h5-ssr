@@ -47,6 +47,7 @@
     "cross-env": "^7.0.3",
     "dep-import-type": "link:./dep-import-type",
     "eslint-config-lcy-vue": "^3.4.0",
+    "http-proxy-middleware": "^2.0.6",
     "husky": "^8.0.3",
     "lint-staged": "^13.1.2",
     "lru-cache": "^7.16.1",
