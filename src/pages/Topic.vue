@@ -8,24 +8,17 @@
     </div>
 </template>
 
-<script>
-import { computed } from 'vue'
-import { useHead } from '@vueuse/head'
-
-import useGlobal from '@/mixins/global'
-
-import { useTopicStore } from '@/pinia/topics'
-
-export default {
+<script setup>
+defineOptions({
+    name: 'topic',
     asyncData({ store, route, api }) {
         const topicStore = useTopicStore(store)
         return topicStore.getTopic({ id: route.query.id }, api)
     }
-}
-</script>
-<script setup name="topic">
+})
+
 // eslint-disable-next-line no-unused-vars
-const { ctx, options, proxy, route, router, storeToRefs, globalStore, ref, reactive, useToggle, useLockFn } = useGlobal()
+const { ctx, options, route, router, globalStore, useLockFn, useDataIsLoaded } = useGlobal('app-root')
 
 // pinia 状态管理 ===>
 const topicStore = useTopicStore()
@@ -70,5 +63,9 @@ useHead({
             content: computed(() => item.value.data.c_title)
         }
     ]
+})
+
+onMounted(() => {
+    document.querySelector('.body').scrollTo(0, 0)
 })
 </script>

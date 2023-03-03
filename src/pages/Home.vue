@@ -6,30 +6,23 @@
                 <router-link :to="`/topic?id=${item.c_id}`">{{ item.c_title }}</router-link>
             </li>
         </ul>
-        <el-button @click="getList(lists.page + 1)" :loading="loading" type="primary">下一页</el-button>
+        <van-button @click="getList(lists.page + 1)" :loading="loading" type="primary" size="small">下一页</van-button>
     </div>
 </template>
 
-<script>
-import { onMounted, onBeforeUnmount, onActivated } from 'vue'
-import { useHead } from '@vueuse/head'
-import { useWindowScroll } from '@vueuse/core'
+<script setup>
 import ls from 'store2'
 
-import useGlobal from '@/mixins/global'
-
-import { useTopicStore } from '@/pinia/topics'
-
-export default {
+defineOptions({
+    name: 'home',
     asyncData({ store, route, api }) {
         const topicStore = useTopicStore(store)
         return topicStore.getTopics({ path: route.path, page: 1 }, api)
     }
-}
-</script>
-<script setup name="home">
+})
+
 // eslint-disable-next-line no-unused-vars
-const { ctx, options, proxy, route, router, storeToRefs, globalStore, ref, reactive, useToggle, useLockFn } = useGlobal()
+const { ctx, options, route, router, globalStore, useLockFn, useDataIsLoaded } = useGlobal('app-root')
 
 // pinia 状态管理 ===>
 const topicStore = useTopicStore()

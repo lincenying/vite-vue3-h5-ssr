@@ -3,23 +3,21 @@
         <h1>{{ msg }}</h1>
         <Foo></Foo>
         <Bar page="我也是来自jsx"></Bar>
-        <div><el-button @click="handleDialog">点击打开 Message Box</el-button></div>
+        <div>
+            <van-button @click="handleDialog" type="primary" size="small">点击打开</van-button>
+        </div>
     </div>
 </template>
 
-<script>
-import { defineAsyncComponent } from 'vue'
-import { useHead } from '@vueuse/head'
-
-import useGlobal from '@/mixins/global'
-
+<script setup>
 import Bar from '../components/Bar'
 
-export default {}
-</script>
-<script setup name="about">
+defineOptions({
+    name: 'about'
+})
+
 // eslint-disable-next-line no-unused-vars
-const { ctx, options, proxy, route, router, storeToRefs, globalStore, ref, reactive, useToggle, useLockFn } = useGlobal()
+const { ctx, options, route, router, globalStore, useLockFn, useDataIsLoaded } = useGlobal('app-root')
 
 useHead({
     // Can be static or computed
@@ -37,14 +35,11 @@ const Foo = defineAsyncComponent(() => import('../components/Foo').then(mod => m
 const msg = ref('About: SFC组件')
 
 const handleDialog = () => {
-    ctx.$alert('这是一段内容', '标题名称', {
-        confirmButtonText: '确定',
-        callback: action => {
-            ctx.$message({
-                type: 'info',
-                message: `action: ${action}`
-            })
-        }
+    showDialog({
+        title: '标题',
+        message: '代码是写出来给人看的，附带能在机器上运行。'
+    }).then(() => {
+        // on close
     })
 }
 </script>

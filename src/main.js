@@ -3,7 +3,6 @@ import { createPinia } from 'pinia'
 import { createHead } from '@vueuse/head'
 
 import { createRouter } from './router'
-import ElConfig from './config/element'
 
 import App from './App.vue'
 
@@ -17,7 +16,6 @@ export function createApp() {
     const router = createRouter()
     const store = createPinia()
     const head = createHead()
-    app.config.globalProperties.$ELEMENT = { size: 'small', zIndex: 3000 }
-    ElConfig(app).use(store).use(router).use(head)
+    app.use(store).use(router).use(head)
     return { app, router, store, head }
 }

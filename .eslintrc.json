@@ -1,16 +1,22 @@
 {
-    "extends": ["lcy-vue"],
+    "extends": ["lcy-vue", "./.eslintrc-auto-import.json"],
     "globals": {
-        "uni": true,
-        "plus": true,
-        "wx": true
+        "echarts": true,
+        "$$": "readonly",
+        "$ref": "readonly",
+        "$computed": "readonly",
+        "$shallowRef": "readonly",
+        "$customRef": "readonly",
+        "$toRef": "readonly",
+        "defineOptions": "readonly",
+        "definePropsRefs": "readonly"
     },
     "rules": {
-        "wrap-regex": 0,
-        "no-irregular-whitespace": 0,
         "no-inline-comments": 0,
-        "vue/order-in-components": "error",
-        "vue/no-v-model-argument": 0,
-        "vue/multi-word-component-names": 0
+        "no-irregular-whitespace": 0,
+        "no-unused-expressions": 0,
+        "vue/multi-word-component-names": 0,
+        "vue/no-v-for-template-key": 0,
+        "vue/no-v-model-argument": 0
     }
 }

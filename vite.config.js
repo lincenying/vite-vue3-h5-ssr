@@ -1,11 +1,17 @@
 import path from 'node:path'
+
 import { loadEnv } from 'vite'
+
 import vuePlugin from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import WindiCSS from 'vite-plugin-windicss'
-// import { getBabelOutputPlugin } from '@rollup/plugin-babel'
-import { createStyleImportPlugin, AndDesignVueResolve, VantResolve, ElementPlusResolve, NutuiResolve, AntdResolve } from 'vite-plugin-style-import'
-import vueSetupExtend from 'vite-plugin-vue-setup-extend'
+
+import UnoCSS from 'unocss/vite'
+import { createHtmlPlugin } from 'vite-plugin-html'
+
+import VueMacros from 'unplugin-vue-macros/vite'
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { VantResolver } from 'unplugin-vue-components/resolvers'
 
 export const ssrTransformCustomDir = () => {
     return {
@@ -15,7 +21,7 @@ export const ssrTransformCustomDir = () => {
 }
 
 // https://vitejs.dev/config/
-export default ({ mode, command, ssrBuild }) => {
+export default ({ mode }) => {
     process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
 
     const config = {
@@ -27,32 +33,78 @@ export default ({ mode, command, ssrBuild }) => {
             }
         },
         plugins: [
-            // getBabelOutputPlugin(),
-            vuePlugin(),
-            vueJsx(),
-            vueSetupExtend(),
-            {
-                name: 'virtual',
-                resolveId(id) {
-                    if (id === '@foo') {
-                        return id
-                    }
-                },
-                load(id, options) {
-                    const ssrFromOptions = options?.ssr ?? false
-                    if (id === '@foo') {
-                        // Force a mismatch error if ssrBuild is different from ssrFromOptions
-                        return `export default { msg: '${
-                            command === 'build' && !!ssrBuild !== ssrFromOptions ? `defineConfig ssrBuild !== ssr from load options` : 'hi'
-                        }' }`
+            createHtmlPlugin({
+                inject: {
+                    data: {
+                        VITE_APP_ENV: process.env.VITE_APP_ENV,
+                        VITE_APP_API_DOMAIN: process.env.VITE_APP_API_DOMAIN,
+                        VITE_APP_API: process.env.VITE_APP_API,
+                        MODE: mode
                     }
                 }
-            },
-            createStyleImportPlugin({
-                resolves: [AndDesignVueResolve(), VantResolve(), ElementPlusResolve(), NutuiResolve(), AntdResolve()]
             }),
-            WindiCSS({
-                safelist: 'prose prose-sm m-auto text-left'
+            VueMacros({
+                plugins: {
+                    vue: vuePlugin({
+                        template: {
+                            compilerOptions: {
+                                isCustomElement: tag => ['def'].includes(tag)
+                            }
+                        }
+                    }),
+                    vueJsx: vueJsx()
+                }
+            }),
+            // vuePlugin({
+            //     reactivityTransform: true,
+            //     template: {
+            //         compilerOptions: {
+            //             isCustomElement: tag => ['def'].includes(tag)
+            //         }
+            //     }
+            // }),
+            // vueJsx(),
+            AutoImport({
+                eslintrc: {
+                    enabled: true
+                },
+                include: [
+                    /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
+                    /\.vue$/,
+                    /\.vue\?vue/, // .vue
+                    /\.md$/ // .md
+                ],
+                imports: [
+                    'vue',
+                    'vue-router',
+                    '@vueuse/core',
+                    '@vueuse/head',
+                    {
+                        pinia: ['defineStore', 'storeToRefs'],
+                        'vue-router': ['createRouter', 'createWebHashHistory'],
+                        vant: ['showDialog'],
+                        '@/utils': ['UTC2Date', 'deepClone']
+                    }
+                ],
+                dts: 'src/auto-imports.d.ts',
+                dirs: ['src/components', 'src/pinia', 'src/mixins'],
+
+                resolvers: [VantResolver()],
+                vueTemplate: true,
+                cache: false
+            }),
+            Components({
+                include: [
+                    /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
+                    /\.vue$/,
+                    /\.vue\?vue/, // .vue
+                    /\.md$/ // .md
+                ],
+                resolvers: [VantResolver()],
+                dts: 'src/components.d.ts'
+            }),
+            UnoCSS({
+                /* options */
             })
         ],
         resolve: {
@@ -60,6 +112,7 @@ export default ({ mode, command, ssrBuild }) => {
                 '@': path.join(__dirname, './src')
             }
         },
+
         ssr: {
             noExternal: [
                 // this package has uncompiled .vue files
