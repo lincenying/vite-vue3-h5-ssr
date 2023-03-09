@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>{{ msg }}</h1>
+        <h1 class="text-red">{{ msg }}</h1>
         <Foo></Foo>
         <Bar page="我也是来自jsx"></Bar>
         <div>
@@ -43,9 +43,3 @@ const handleDialog = () => {
     })
 }
 </script>
-
-<style scoped>
-h1 {
-    color: red;
-}
-</style>

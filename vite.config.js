@@ -1,4 +1,5 @@
 import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 import { loadEnv } from 'vite'
 
@@ -22,6 +23,7 @@ export const ssrTransformCustomDir = () => {
 
 // https://vitejs.dev/config/
 export default ({ mode }) => {
+    const __dirname = path.dirname(fileURLToPath(import.meta.url))
     process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
 
     const config = {
@@ -115,6 +117,7 @@ export default ({ mode }) => {
 
         ssr: {
             noExternal: [
+                'vant'
                 // this package has uncompiled .vue files
             ]
         },
