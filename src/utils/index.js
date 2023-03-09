@@ -75,16 +75,16 @@ export const UTC2Date = (utc, format, add) => {
     let hours = newDate.getHours()
     let minutes = newDate.getMinutes()
     let seconds = newDate.getSeconds()
-    let mseconds = newDate.getMilliseconds()
+    let secondes = newDate.getMilliseconds()
     month = month < 10 ? '0' + month : month
     date = date < 10 ? '0' + date : date
     hours = hours < 10 ? '0' + hours : hours
     minutes = minutes < 10 ? '0' + minutes : minutes
     seconds = seconds < 10 ? '0' + seconds : seconds
-    if (mseconds < 100 && mseconds > 9) {
-        mseconds = '0' + mseconds
-    } else if (mseconds < 10) {
-        mseconds = '00' + mseconds
+    if (secondes < 100 && secondes > 9) {
+        secondes = '0' + secondes
+    } else if (secondes < 10) {
+        secondes = '00' + secondes
     }
     return format
         .replace(/y/gi, year)
@@ -93,7 +93,7 @@ export const UTC2Date = (utc, format, add) => {
         .replace(/h/gi, hours)
         .replace(/i/gi, minutes)
         .replace(/s/gi, seconds)
-        .replace(/v/gi, mseconds)
+        .replace(/v/gi, secondes)
 }
 
 // 生成随机字符串
@@ -120,9 +120,9 @@ export const getQueryStringByName = (search, name) => {
     return result[1]
 }
 
-export const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+export const Sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
-export const str2array = str => {
+export const strToArray = str => {
     try {
         str = JSON.parse(str)
     } catch (error) {
@@ -195,7 +195,7 @@ export const is = {
 export const getScrollWidth = () => {
     //creates a DOM element
     const testDiv = document.createElement('div')
-    //stores the CSS atributes
+    //stores the CSS attributes
     const cssAttributes = {
         width: '100px',
         height: '100px',
@@ -232,7 +232,7 @@ export const addNewStyle = newStyle => {
 
 // 将字符串中的横线模式替换成驼峰模式
 // a-bc-df => aBcDf
-export const tranformStr = str => {
+export const transformStr = str => {
     const strArr = str.split('-')
     for (let i = 1; i < strArr.length; i++) {
         strArr[i] = strArr[i].charAt(0).toUpperCase() + strArr[i].substring(1)
@@ -247,7 +247,7 @@ export const deepMerge = merge
 export const deepClone = cloneDeep
 
 // 计算字符串长度, 汉字算2
-export const strlen = str => {
+export const strLen = str => {
     var len = 0
     for (var i = 0; i < str.length; i++) {
         var c = str.charCodeAt(i)
@@ -273,7 +273,7 @@ export const paramsToObject = str => {
 }
 
 // 返回一个lower - upper之间的随机数
-export const random = (lower, upper) => {
+export const Random = (lower, upper) => {
     lower = +lower || 0
     upper = +upper || 0
     return Math.random() * (upper - lower) + lower
@@ -349,15 +349,15 @@ export const batchHexToRgba = arr => {
             return hexToRgba(item).rgb
         }
         if (item.indexOf('rgba(') === 0) {
-            const preg = /rgba\(\s*([\d]+)\s*,\s*([\d]+)\s*,\s*([\d]+)\s*,\s*([\d]+)\s*\)/i
-            const match = preg.exec(item)
+            const re = /rgba\(\s*([\d]+)\s*,\s*([\d]+)\s*,\s*([\d]+)\s*,\s*([\d]+)\s*\)/i
+            const match = re.exec(item)
             if (match) {
                 return match[1] + ',' + match[2] + ',' + match[3]
             }
         }
         if (item.indexOf('rgb(') === 0) {
-            const preg = /rgb\(\s*([\d]+)\s*,\s*([\d]+)\s*,\s*([\d]+)\s*\)/i
-            const match = preg.exec(item)
+            const re = /rgb\(\s*([\d]+)\s*,\s*([\d]+)\s*,\s*([\d]+)\s*\)/i
+            const match = re.exec(item)
             if (match) {
                 return match[1] + ',' + match[2] + ',' + match[3]
             }
