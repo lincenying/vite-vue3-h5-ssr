@@ -41,7 +41,7 @@ export const useTopicStore = defineStore('topicStore', {
         async getTopic(config, $api) {
             if (!import.meta.env.SSR) $api = api
             if (config.path === this.item.path) return
-            const { code, data } = await $api.get('article/detail/' + config.id, { ...config, markdown: 1, cache: true })
+            const { code, data } = await $api.get(`article/detail/${config.id}`, { ...config, markdown: 1, cache: true })
             if (data && code === 200) {
                 this.item = {
                     data,

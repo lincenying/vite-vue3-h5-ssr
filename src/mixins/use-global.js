@@ -8,7 +8,7 @@ export default () => {
     const globalStore = useGlobalStore()
 
     const log = (text, color = 'blue') => {
-        console.log('%c[' + options.name + ']  >> ', 'color: ' + color, text + ' <<-- (' + UTC2Date(null, 'y-m-d h:i:s') + ')')
+        console.log(`%c[${options.name}]  >> `, `color: ${color}`, `${text} <<-- (${UTC2Date(null, 'y-m-d h:i:s')})`)
     }
 
     // autoUnlock === true 不管 fn 返回什么, 都自动解锁
@@ -80,21 +80,21 @@ export default () => {
         let $$timer
         if (timer) {
             if (ctx.$is.int(timer)) {
-                log('定时器计时开始: ' + timer + '秒')
+                log(`定时器计时开始: ${timer}秒`)
                 $$timer = useTimeoutFn(async () => {
                     log('定时器计时结束, 开始刷新数据')
                     await fn()
-                    log('定时器计时开始: ' + timer + '秒')
+                    log(`定时器计时开始: ${timer}秒`)
                     $$timer.start()
                 }, timer * 1000)
             } else {
-                console.warn('[' + options.name + ']  >> 定时器配置必须为数值型')
+                console.warn(`[${options.name}]  >> 定时器配置必须为数值型`)
             }
 
             const visibility = useDocumentVisibility()
             const stopWatch = watch(visibility, (current, previous) => {
                 if (current === 'visible' && previous === 'hidden') {
-                    log('定时器计时开始: ' + timer + '秒')
+                    log(`定时器计时开始: ${timer}秒`)
                     $$timer.stop()
                     $$timer.start()
                 } else {

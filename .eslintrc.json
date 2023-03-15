@@ -1,5 +1,5 @@
 {
-    "extends": ["lcy-vue", "./.eslintrc-auto-import.json"],
+    "extends": ["lcy-vue3", "./.eslintrc-auto-import.json"],
     "globals": {
         "echarts": true,
         "$$": "readonly",

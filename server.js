@@ -121,7 +121,7 @@ if (process.env.NODE_ENV !== 'production') {
 if (!isTest) {
     createServer().then(({ app }) =>
         app.listen(port, () => {
-            console.log('http://localhost:' + port)
+            console.log(`http://localhost:${port}`)
         })
     )
 }

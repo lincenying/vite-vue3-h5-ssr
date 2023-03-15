@@ -4,14 +4,12 @@
         <Foo></Foo>
         <Bar page="我也是来自jsx"></Bar>
         <div>
-            <van-button @click="handleDialog" type="primary" size="small">点击打开</van-button>
+            <van-button type="primary" size="small" @click="handleDialog">点击打开</van-button>
         </div>
     </div>
 </template>
 
 <script setup>
-import Bar from '../components/Bar'
-
 defineOptions({
     name: 'about'
 })

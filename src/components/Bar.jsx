@@ -1,7 +1,10 @@
 export default defineComponent({
-    name: 'comp-header',
+    name: 'CompHeader',
     props: {
-        page: String
+        page: {
+            type: String,
+            default: ''
+        }
     },
     setup(props) {
         // eslint-disable-next-line no-unused-vars

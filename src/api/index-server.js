@@ -7,7 +7,7 @@ const objToStr = cookies => {
     if (!cookies) return ''
     let cookie = ''
     Object.keys(cookies).forEach(item => {
-        cookie += item + '=' + cookies[item] + '; '
+        cookie += `${item}=${cookies[item]}; `
     })
     return cookie
 }
@@ -25,11 +25,11 @@ export const api = cookies => {
             },
             timeout: config.timeout
         }),
-        getCookes() {
+        getCookies() {
             return this.cookies
         },
         async post(url, data) {
-            const cookies = this.getCookes() || {}
+            const cookies = this.getCookies() || {}
             const username = cookies.username || ''
             const key = md5(url + JSON.stringify(data) + username)
             if (config.cached && data.cache && config.cached.has(key)) {
@@ -48,7 +48,7 @@ export const api = cookies => {
             return res_1 && res_1.data
         },
         async get(url, params) {
-            const cookies = this.getCookes() || {}
+            const cookies = this.getCookies() || {}
             const username = cookies.username || ''
             const key = md5(url + JSON.stringify(params) + username)
             if (config.cached && params.cache && config.cached.has(key)) {

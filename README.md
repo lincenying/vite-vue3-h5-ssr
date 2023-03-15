@@ -1,13 +1,28 @@
-# vite2-vue3-ssr
-vite2 vue3 ssr vue-router vuex meta
-官方demo + vuex + head管理 + asyncData
+# vite-vue3-ssr
+vite vue3 ssr vue-router pinia meta
+官方demo + pinia + head管理 + asyncData
 
-### run
+## Project setup
+```bash
+$ pnpm install
 ```
-yarn
 
-yarn serve
+### Compiles and hot-reloads for development
+```bash
+$ pnpm serve
+```
 
-yarn build
-yarn start
+### Compiles and minifies for production
+```bash
+$ pnpm build
+```
+
+### Preview for production
+```bash
+$ pnpm start
+```
+
+### Lints and fixes files
+```bash
+$ pnpm lint
 ```

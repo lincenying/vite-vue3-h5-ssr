@@ -6,7 +6,7 @@
                 <router-link :to="`/topic?id=${item.c_id}`">{{ item.c_title }}</router-link>
             </li>
         </ul>
-        <van-button @click="getList(lists.page + 1)" :loading="loading" type="primary" size="small">下一页</van-button>
+        <van-button :loading="loading" type="primary" size="small" @click="getList(lists.page + 1)">下一页</van-button>
     </div>
 </template>
 

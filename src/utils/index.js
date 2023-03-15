@@ -24,19 +24,19 @@ export const getDateDiff = publishTime => {
     let s = date.getSeconds()
     //小于10的在前面补0
     if (M < 10) {
-        M = '0' + M
+        M = `0${M}`
     }
     if (D < 10) {
-        D = '0' + D
+        D = `0${D}`
     }
     if (H < 10) {
-        H = '0' + H
+        H = `0${H}`
     }
     if (m < 10) {
-        m = '0' + m
+        m = `0${m}`
     }
     if (s < 10) {
-        s = '0' + s
+        s = `0${s}`
     }
 
     const d = timeNow - publishTime
@@ -46,20 +46,20 @@ export const getDateDiff = publishTime => {
     const d_seconds = parseInt(d, 10)
 
     if (d_days > 0 && d_days < 3) {
-        return d_days + '天前'
+        return `${d_days}天前`
     } else if (d_days <= 0 && d_hours > 0) {
-        return d_hours + '小时前'
+        return `${d_hours}小时前`
     } else if (d_hours <= 0 && d_minutes > 0) {
-        return d_minutes + '分钟前'
+        return `${d_minutes}分钟前`
     } else if (d_seconds < 60) {
         if (d_seconds <= 0) {
             return '刚刚'
         }
-        return d_seconds + '秒前'
+        return `${d_seconds}秒前`
     } else if (d_days >= 3 && d_days < 30) {
-        return M + '-' + D + ' ' + H + ':' + m
+        return `${M}-${D} ${H}:${m}`
     } else if (d_days >= 30) {
-        return Y + '-' + M + '-' + D + ' ' + H + ':' + m
+        return `${Y}-${M}-${D} ${H}:${m}`
     }
 }
 
@@ -76,15 +76,15 @@ export const UTC2Date = (utc, format, add) => {
     let minutes = newDate.getMinutes()
     let seconds = newDate.getSeconds()
     let secondes = newDate.getMilliseconds()
-    month = month < 10 ? '0' + month : month
-    date = date < 10 ? '0' + date : date
-    hours = hours < 10 ? '0' + hours : hours
-    minutes = minutes < 10 ? '0' + minutes : minutes
-    seconds = seconds < 10 ? '0' + seconds : seconds
+    month = month < 10 ? `0${month}` : month
+    date = date < 10 ? `0${date}` : date
+    hours = hours < 10 ? `0${hours}` : hours
+    minutes = minutes < 10 ? `0${minutes}` : minutes
+    seconds = seconds < 10 ? `0${seconds}` : seconds
     if (secondes < 100 && secondes > 9) {
-        secondes = '0' + secondes
+        secondes = `0${secondes}`
     } else if (secondes < 10) {
-        secondes = '00' + secondes
+        secondes = `00${secondes}`
     }
     return format
         .replace(/y/gi, year)
@@ -113,7 +113,7 @@ export const setConfig = () => ({
 })
 
 export const getQueryStringByName = (search, name) => {
-    const result = search.match(new RegExp('[?&]' + name + '=([^&|#]+)', 'i'))
+    const result = search.match(new RegExp(`[?&]${name}=([^&|#]+)`, 'i'))
     if (result == null || result.length < 1) {
         return ''
     }
@@ -318,15 +318,15 @@ export const getSum = arr => {
 }
 
 export const hexToRgba = (hex, opacity = 1) => {
-    const red = parseInt('0x' + hex.slice(1, 3), 16)
-    const green = parseInt('0x' + hex.slice(3, 5), 16)
-    const blue = parseInt('0x' + hex.slice(5, 7), 16)
-    const RGBA = 'rgba(' + red + ',' + green + ',' + blue + ',' + opacity + ')'
+    const red = parseInt(`0x${hex.slice(1, 3)}`, 16)
+    const green = parseInt(`0x${hex.slice(3, 5)}`, 16)
+    const blue = parseInt(`0x${hex.slice(5, 7)}`, 16)
+    const RGBA = `rgba(${red},${green},${blue},${opacity})`
     return {
         red,
         green,
         blue,
-        rgb: red + ',' + green + ',' + blue,
+        rgb: `${red},${green},${blue}`,
         rgba: RGBA
     }
 }
@@ -337,7 +337,7 @@ export const RGB2Hex = color => {
     const g = parseInt(rgb[1], 10)
     const b = parseInt(rgb[2].split(')')[0], 10)
     // eslint-disable-next-line no-bitwise
-    const hex = '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)
+    const hex = `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`
     return hex
 }
 
@@ -352,14 +352,14 @@ export const batchHexToRgba = arr => {
             const re = /rgba\(\s*([\d]+)\s*,\s*([\d]+)\s*,\s*([\d]+)\s*,\s*([\d]+)\s*\)/i
             const match = re.exec(item)
             if (match) {
-                return match[1] + ',' + match[2] + ',' + match[3]
+                return `${match[1]},${match[2]},${match[3]}`
             }
         }
         if (item.indexOf('rgb(') === 0) {
             const re = /rgb\(\s*([\d]+)\s*,\s*([\d]+)\s*,\s*([\d]+)\s*\)/i
             const match = re.exec(item)
             if (match) {
-                return match[1] + ',' + match[2] + ',' + match[3]
+                return `${match[1]},${match[2]},${match[3]}`
             }
         }
         return item
