@@ -1,6 +1,6 @@
 {
   "name": "vite-vue3-ssr",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "author": "lincenying <lincenying@qq.com>",
   "type": "module",
   "scripts": {
@@ -34,7 +34,6 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
     "@vitejs/plugin-vue-jsx": "^3.0.0",
-    "@vue/compiler-sfc": "^3.2.47",
     "@vue/server-renderer": "^3.2.47",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
