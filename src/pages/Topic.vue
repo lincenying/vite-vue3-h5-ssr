@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div>
+        <div v-if="item.data">
             <h5>Topic page</h5>
             <h6>{{ item.data.c_title }}</h6>
             <div class="content" v-html="item.data.c_content"></div>
@@ -8,21 +8,21 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import type { asyncDataConfig } from '@/types'
+
 defineOptions({
     name: 'topic',
-    asyncData({ store, route, api }) {
+    asyncData(payload: asyncDataConfig) {
+        const { store, route, api } = payload
         const topicStore = useTopicStore(store)
         return topicStore.getTopic({ id: route.query.id }, api)
     }
 })
 
-// eslint-disable-next-line no-unused-vars
-const { ctx, options, route, router, globalStore, useLockFn, useDataIsLoaded } = useGlobal('app-root')
-
 // pinia 状态管理 ===>
 const topicStore = useTopicStore()
-const { item } = storeToRefs(topicStore)
+const { item } = $(storeToRefs(topicStore))
 
 // const tmpCount = computed(() => globalStore.counter)
 // 监听状态变化
@@ -56,16 +56,19 @@ const { item } = storeToRefs(topicStore)
 
 useHead({
     // Can be static or computed
-    title: computed(() => item.value.data.c_title),
+    title: computed(() => (item.data && item.data.c_title) || ''),
     meta: [
         {
             name: `description`,
-            content: computed(() => item.value.data.c_title)
+            content: computed(() => (item.data && item.data.c_title) || '')
         }
     ]
 })
 
 onMounted(() => {
-    document.querySelector('.body').scrollTo(0, 0)
+    const body = document.querySelector('.body')
+    if (body) {
+        body.scrollTo(0, 0)
+    }
 })
 </script>

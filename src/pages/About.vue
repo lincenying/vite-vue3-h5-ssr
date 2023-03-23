@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1 class="text-red">{{ msg }}</h1>
-        <Foo></Foo>
+        <Foo />
         <Bar page="我也是来自jsx"></Bar>
         <div>
             <van-button type="primary" size="small" @click="handleDialog">点击打开</van-button>
@@ -9,13 +9,10 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 defineOptions({
     name: 'about'
 })
-
-// eslint-disable-next-line no-unused-vars
-const { ctx, options, route, router, globalStore, useLockFn, useDataIsLoaded } = useGlobal('app-root')
 
 useHead({
     // Can be static or computed

@@ -10,23 +10,26 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import ls from 'store2'
+import type { asyncDataConfig } from '@/types'
 
 defineOptions({
     name: 'home',
-    asyncData({ store, route, api }) {
+    asyncData(payload: asyncDataConfig) {
+        const { store, route, api } = payload
         const topicStore = useTopicStore(store)
         return topicStore.getTopics({ path: route.path, page: 1 }, api)
     }
 })
 
 // eslint-disable-next-line no-unused-vars
-const { ctx, options, route, router, globalStore, useLockFn, useDataIsLoaded } = useGlobal('app-root')
+const { route } = useGlobal()
 
 // pinia 状态管理 ===>
 const topicStore = useTopicStore()
-const { lists } = storeToRefs(topicStore)
+const { lists } = $(storeToRefs(topicStore))
+
 // const tmpCount = computed(() => globalStore.counter)
 // 监听状态变化
 // globalStore.$subscribe((mutation, state) => {
@@ -72,7 +75,7 @@ useHead({
 
 const [loading, toggleLoading] = useToggle(false)
 
-const getList = async page => {
+const getList = async (page: number) => {
     toggleLoading(true)
     topicStore.getTopics({ path: currPath, page })
     toggleLoading(false)
@@ -83,7 +86,10 @@ const { y } = useWindowScroll()
 onBeforeUnmount(() => {
     console.log(`Home onBeforeUnmount`)
     ls.set(currPath, y.value)
-    ls.set(currPath, document.querySelector('.body').scrollTop)
+    const body = document.querySelector('.body')
+    if (body) {
+        ls.set(currPath, body.scrollTop)
+    }
 })
 onActivated(() => {
     console.log(`Home onActivated`)
@@ -91,13 +97,16 @@ onActivated(() => {
 
 onMounted(() => {
     console.log(`Home onMounted`)
-    if (lists.value.path === '') {
+    if (lists.path === '') {
         getList(1)
     } else {
         const scrollTop = ls.get(currPath)
         ls.remove(currPath)
         // window.scrollTo(0, scrollTop)
-        document.querySelector('.body').scrollTo(0, scrollTop)
+        const body = document.querySelector('.body')
+        if (body) {
+            body.scrollTo(0, scrollTop)
+        }
     }
 })
 </script>

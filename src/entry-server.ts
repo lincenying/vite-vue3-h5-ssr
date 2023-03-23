@@ -1,11 +1,15 @@
+/* eslint-disable vue/one-component-per-file */
 import { basename } from 'node:path'
 import { renderToString } from '@vue/server-renderer'
 import { renderHeadToString } from '@vueuse/head'
 
+import type { Request } from 'express'
+import type { anyObject } from './types'
+
 import { createApp } from './main'
 import { api } from './api/index-server'
 
-function renderPreloadLink(file) {
+function renderPreloadLink(file: string) {
     if (file.endsWith('.js')) {
         return `<link rel="modulepreload" crossorigin href="${file}">`
     } else if (file.endsWith('.css')) {
@@ -25,13 +29,13 @@ function renderPreloadLink(file) {
     return ''
 }
 
-function renderPreloadLinks(modules, manifest) {
+function renderPreloadLinks(modules: any[], manifest: anyObject) {
     let links = ''
     const seen = new Set()
     modules.forEach(id => {
         const files = manifest[id]
         if (files) {
-            files.forEach(file => {
+            files.forEach((file: string) => {
                 if (!seen.has(file)) {
                     seen.add(file)
                     const filename = basename(file)
@@ -49,12 +53,15 @@ function renderPreloadLinks(modules, manifest) {
     return links
 }
 
-function replaceHtmlTag(html) {
+function replaceHtmlTag(html: string) {
     return html.replace(/<script(.*?)>/gi, '&lt;script$1&gt;').replace(/<\/script>/g, '&lt;/script&gt;')
 }
 
-export async function render(url, manifest, req) {
+export async function render(url: string, manifest: Record<string, string[]>, req: Request) {
     const { app, router, store, head } = createApp()
+
+    app.component('ReloadPrompt', { render: () => null })
+    app.component('VMdEditor', { render: () => null })
 
     // set the router to the desired URL before rendering
     router.push(url)
@@ -66,11 +73,15 @@ export async function render(url, manifest, req) {
 
     // store.$api = store.state.$api = api(req && req.cookies)
 
-    const matchedComponents = router.currentRoute.value.matched.flatMap(record => Object.values(record.components))
+    const matchedComponents = router.currentRoute.value.matched.flatMap((record: any) => Object.values(record.components))
+
+    // const globalStore = useGlobalStore(store)
+
+    // globalStore.setCookies(req.cookies)
 
     try {
         await Promise.all(
-            matchedComponents.map(component => {
+            matchedComponents.map((component: any) => {
                 if (component.asyncData) {
                     return component.asyncData({
                         store,
@@ -89,7 +100,7 @@ export async function render(url, manifest, req) {
     // @vitejs/plugin-vue injects code into a component's setup() that registers
     // itself on ctx.modules. After the render, ctx.modules would contain all the
     // components that have been instantiated during this render call.
-    const ctx = {}
+    const ctx: anyObject = {}
     let html = await renderToString(app, ctx)
 
     const { headTags } = await renderHeadToString(head)

@@ -1,6 +1,9 @@
 import axios from 'axios'
 import qs from 'qs'
+
+import type { AxiosResponse } from 'axios'
 import config from './config-client'
+import type { anyObject } from '@/types'
 
 axios.interceptors.request.use(
     config => {
@@ -16,26 +19,31 @@ axios.interceptors.response.use(
     error => Promise.resolve(error.response)
 )
 
-function checkStatus(response) {
+function checkStatus(response: AxiosResponse) {
     if (response && (response.status === 200 || response.status === 304)) {
         return response
     }
     return {
         data: {
             code: -404,
-            message: response.statusText,
+            message: (response && response.statusText) || '未知错误',
             data: ''
         }
     }
 }
 
-function checkCode(res) {
+function checkCode(res: any) {
+    if (res.data.code === -500) {
+        window.location.href = '/backend'
+    } else if (res.data.code === -400) {
+        window.location.href = '/'
+    }
     return res && res.data
 }
 
 export default {
-    async file(url, data) {
-        const res = await axios({
+    async file(url: string, data: anyObject) {
+        const response = await axios({
             method: 'post',
             url,
             data,
@@ -43,10 +51,11 @@ export default {
                 'X-Requested-With': 'XMLHttpRequest'
             }
         })
-        return checkCode(checkStatus(res))
+        const res = checkStatus(response)
+        return checkCode(res)
     },
-    async post(url, data) {
-        const res = await axios({
+    async post(url: string, data: anyObject) {
+        const response = await axios({
             method: 'post',
             url: config.api + url,
             data: qs.stringify(data),
@@ -56,10 +65,11 @@ export default {
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
             }
         })
-        return checkCode(checkStatus(res))
+        const res = checkStatus(response)
+        return checkCode(res)
     },
-    async get(url, params) {
-        const res = await axios({
+    async get(url: string, params: anyObject) {
+        const response = await axios({
             method: 'get',
             url: config.api + url,
             params,
@@ -68,6 +78,7 @@ export default {
                 'X-Requested-With': 'XMLHttpRequest'
             }
         })
-        return checkCode(checkStatus(res))
+        const res = checkStatus(response)
+        return checkCode(res)
     }
 }

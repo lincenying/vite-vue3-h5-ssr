@@ -1,6 +1,6 @@
-export const Foo = {
-    name: 'foo',
+export const Foo = defineComponent({
+    name: 'Foo',
     setup() {
         return () => <div class="jsx">from JSX</div>
     }
-}
+})

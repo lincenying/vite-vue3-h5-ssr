@@ -1,10 +1,12 @@
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-import { loadEnv } from 'vite'
+import { loadEnv, defineConfig } from 'vite'
 
 import vuePlugin from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
+
+import { viteMockServe } from 'vite-plugin-mock'
 
 import UnoCSS from 'unocss/vite'
 import { createHtmlPlugin } from 'vite-plugin-html'
@@ -14,6 +16,8 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { VantResolver } from 'unplugin-vue-components/resolvers'
 
+import apiDomain from './src/api/url'
+
 export const ssrTransformCustomDir = () => {
     return {
         props: [],
@@ -22,11 +26,28 @@ export const ssrTransformCustomDir = () => {
 }
 
 // https://vitejs.dev/config/
-export default ({ mode }) => {
+export default defineConfig(({ mode, command }) => {
     const __dirname = path.dirname(fileURLToPath(import.meta.url))
+
     process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
 
+    const localMock = true
+    const prodMock = false
+
     const config = {
+        server: {
+            port: 7775,
+            host: '0.0.0.0',
+            hot: true,
+            disableHostCheck: true,
+            proxy: {
+                '/api': {
+                    target: apiDomain,
+                    changeOrigin: true,
+                    rewrite: (path: string) => path.replace(new RegExp(`^/api`), '/api')
+                }
+            }
+        },
         css: {
             preprocessorOptions: {
                 less: {
@@ -36,6 +57,7 @@ export default ({ mode }) => {
         },
         plugins: [
             createHtmlPlugin({
+                minify: false,
                 inject: {
                     data: {
                         VITE_APP_ENV: process.env.VITE_APP_ENV,
@@ -57,15 +79,16 @@ export default ({ mode }) => {
                     vueJsx: vueJsx()
                 }
             }),
-            // vuePlugin({
-            //     reactivityTransform: true,
-            //     template: {
-            //         compilerOptions: {
-            //             isCustomElement: tag => ['def'].includes(tag)
-            //         }
-            //     }
-            // }),
-            // vueJsx(),
+            viteMockServe({
+                mockPath: 'mock',
+                localEnabled: command === 'serve' && localMock,
+                prodEnabled: command !== 'serve' && prodMock,
+                injectCode: `
+                  import { setupProdMockServer } from './mockProdServer';
+                  setupProdMockServer();
+                `,
+                logger: true
+            }),
             AutoImport({
                 eslintrc: {
                     enabled: true
@@ -85,13 +108,14 @@ export default ({ mode }) => {
                         pinia: ['defineStore', 'storeToRefs'],
                         'vue-router': ['createRouter', 'createWebHashHistory'],
                         vant: ['showDialog'],
-                        '@/utils': ['UTC2Date', 'deepClone']
+                        '@/utils': ['deepClone', 'deepMerge', '$is', 'showMsg']
                     }
                 ],
                 dts: 'src/auto-imports.d.ts',
-                dirs: ['src/components', 'src/pinia', 'src/mixins'],
+                dirs: ['src/components', 'src/composables', 'src/pinia'],
 
                 resolvers: [VantResolver()],
+                defaultExportByFilename: false,
                 vueTemplate: true,
                 cache: false
             }),
@@ -102,6 +126,7 @@ export default ({ mode }) => {
                     /\.vue\?vue/, // .vue
                     /\.md$/ // .md
                 ],
+                extensions: ['vue', 'tsx', 'jsx'],
                 resolvers: [VantResolver()],
                 dts: 'src/components.d.ts'
             }),
@@ -114,25 +139,12 @@ export default ({ mode }) => {
                 '@': path.join(__dirname, './src')
             }
         },
-
         ssr: {
             noExternal: [
                 'vant'
                 // this package has uncompiled .vue files
             ]
-        },
-        server: {
-            port: 7775,
-            proxy: {
-                '/api': {
-                    target: 'http://php.mmxiaowu.com',
-                    changeOrigin: true,
-                    pathRewrite: {
-                        '^/api': '/api'
-                    }
-                }
-            }
         }
     }
     return config
-}
+})

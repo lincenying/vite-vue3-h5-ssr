@@ -1,7 +1,8 @@
 import api from '@/api/index-client'
+import type { ApiConfig, ArticleStore } from '@/types'
 
 export const useTopicStore = defineStore('topicStore', {
-    state: () => {
+    state: (): ArticleStore => {
         return {
             lists: {
                 data: [],
@@ -10,14 +11,14 @@ export const useTopicStore = defineStore('topicStore', {
                 path: ''
             },
             item: {
-                data: {},
+                data: null,
                 path: '',
                 isLoad: false
             }
         }
     },
     actions: {
-        async getTopics(config, $api) {
+        async getTopics(config: ApiConfig, $api?: any) {
             if (!import.meta.env.SSR) $api = api
             if (this.lists.data.length > 0 && config.path === this.lists.path && config.page === 1) return
             const { code, data } = await $api.get('article/lists', { ...config, cache: true, perPage: 30 })
@@ -31,14 +32,14 @@ export const useTopicStore = defineStore('topicStore', {
                 }
                 this.lists = {
                     data: _data,
-                    hasNext: config.current_page < config.last_page,
-                    hasPrev: config.current_page > 1,
-                    page: config.page,
+                    hasNext: data.current_page < data.last_page ? 0 : 1,
+                    hasPrev: data.current_page > 1 ? 1 : 0,
+                    page: data.current_page,
                     path: config.path
                 }
             }
         },
-        async getTopic(config, $api) {
+        async getTopic(config: ApiConfig, $api?: any) {
             if (!import.meta.env.SSR) $api = api
             if (config.path === this.item.path) return
             const { code, data } = await $api.get(`article/detail/${config.id}`, { ...config, markdown: 1, cache: true })

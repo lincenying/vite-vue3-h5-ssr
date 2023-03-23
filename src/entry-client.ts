@@ -1,5 +1,9 @@
 import { createApp } from './main'
 
+import 'uno.css'
+import 'vant/es/dialog/style'
+import '@/assets/scss/style.scss'
+
 const { app, router, store } = createApp()
 
 // wait until router is ready before mounting to ensure hydration match
@@ -14,8 +18,8 @@ router.isReady().then(() => {
 
         await Promise.all(
             activated.map(c => {
-                if (c.components.default.asyncData) {
-                    return c.components.default.asyncData({ store, route: to })
+                if ((c.components?.default as any).asyncData) {
+                    return (c.components?.default as any).asyncData({ store, route: to })
                 }
                 return true
             })
