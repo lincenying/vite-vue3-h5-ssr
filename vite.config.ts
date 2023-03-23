@@ -142,7 +142,7 @@ export default defineConfig(({ mode, command }) => {
         ssr: {
             noExternal: [
                 'vant'
-                // this package has uncompiled .vue files
+                // this package has unCompiled .vue files
             ]
         }
     }
