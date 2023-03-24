@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-escape */
-import { defineConfig, presetAttributify, presetUno, transformerDirectives, transformerVariantGroup } from 'unocss'
+import { defineConfig, presetAttributify, presetUno, transformerAttributifyJsx, transformerDirectives, transformerVariantGroup } from 'unocss'
 import type { Preset } from '@unocss/core'
 
 const pxRE = /(-?[\.\d]+)px/g
@@ -39,7 +39,7 @@ export default defineConfig({
         ['text-p', 'text-24px text-hex-999 leading-33px']
     ],
     presets: [presetUno(), presetAttributify(), pxToRemPreset()],
-    transformers: [transformerDirectives(), transformerVariantGroup()],
+    transformers: [transformerAttributifyJsx(), transformerDirectives(), transformerVariantGroup()],
     safelist: 'svg-text1 svg-text2'.split(' '),
     rules: []
 })
