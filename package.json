@@ -4,13 +4,17 @@
   "author": "lincenying <lincenying@qq.com>",
   "type": "module",
   "scripts": {
+    "prepare": "husky install",
+    "del": "sh delete-ts.sh",
     "serve": "nodemon server",
     "build": "yarn build:client && yarn build:server",
     "build:client": "vite build --ssrManifest --outDir dist/client",
     "build:server": "vite build --ssr src/entry-server.js --outDir dist/server",
     "generate": "vite build --ssrManifest --outDir dist/static && yarn build:server && node prerender",
     "start": "cross-env NODE_ENV=production node server.js",
-    "debug": "node --inspect-brk server"
+    "debug": "node --inspect-brk server",
+    "lint": "eslint './src/**/*.{js,ts,tsx,vue}'",
+    "lint:fix": "eslint './src/**/*.{js,ts,tsx,vue}' --fix"
   },
   "dependencies": {
     "@vueuse/core": "^9.13.0",
@@ -47,7 +51,7 @@
     "nodemon": "^2.0.22",
     "postcss": "^8.4.21",
     "postcss-pxtorem": "^6.0.0",
-    "prettier": "^2.8.6",
+    "prettier": "^2.8.7",
     "sass": "^1.60.0",
     "serve-static": "^1.15.0",
     "stylelint-config-lcy": "^1.15.10",
