@@ -3,7 +3,7 @@ import qs from 'qs'
 
 import type { AxiosResponse } from 'axios'
 import config from './config-client'
-import type { anyObject } from '@/types'
+import type { ApiClientReturn } from '@/types'
 
 axios.interceptors.request.use(
     config => {
@@ -37,12 +37,26 @@ function checkCode(res: any) {
         window.location.href = '/backend'
     } else if (res.data.code === -400) {
         window.location.href = '/'
+    } else if (res.data.code !== 200) {
+        showMsg(res.data.message)
     }
     return res && res.data
 }
 
-export default {
-    async file(url: string, data: anyObject) {
+type API = () => ApiClientReturn
+
+/**
+ * axios Api 封装
+ * @returns ApiClientReturn
+ * @example
+ * ```
+ * get(url: '/api/url', params: {}, headers: {})
+ * post(url: '/api/url', data: {}, headers: {})
+ * file(url: '/api/url', data: {}, headers: {})
+ * ```
+ */
+const _api: API = () => ({
+    async file(url, data) {
         const response = await axios({
             method: 'post',
             url,
@@ -54,7 +68,7 @@ export default {
         const res = checkStatus(response)
         return checkCode(res)
     },
-    async post(url: string, data: anyObject) {
+    async post(url, data) {
         const response = await axios({
             method: 'post',
             url: config.api + url,
@@ -68,7 +82,7 @@ export default {
         const res = checkStatus(response)
         return checkCode(res)
     },
-    async get(url: string, params: anyObject) {
+    async get(url, params) {
         const response = await axios({
             method: 'get',
             url: config.api + url,
@@ -81,4 +95,6 @@ export default {
         const res = checkStatus(response)
         return checkCode(res)
     }
-}
+})
+
+export default _api()

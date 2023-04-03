@@ -1,20 +1,31 @@
+/* eslint-disable no-unused-vars */
+import type { AxiosInstance } from 'axios'
 import type { Pinia } from 'pinia'
 import type { LocationQueryValue, RouteLocationNormalized } from 'vue-router'
 
 declare type Nullable<T> = T | null
-// eslint-disable-next-line no-unused-vars
-declare type NonNullable<T> = T extends null | undefined ? never : T
 
-export interface anyObject {
-    [propName: string]: any
-}
+declare type NonNullable<T> = T extends null | undefined ? never : T
 
 export interface anyArray {
     [index: number]: any
 }
 
-// eslint-disable-next-line no-unused-vars
 export type Fn = (...args: any[]) => void
+
+export interface ApiClientReturn {
+    get(url: string, params: Record<string, any>, headers?: Record<string, any>): Promise<any>
+    post(url: string, data: Record<string, any>, headers?: Record<string, any>): Promise<any>
+    file(url: string, data: Record<string, any>, headers?: Record<string, any>): Promise<any>
+}
+
+export interface ApiServerReturn {
+    post(url: string, data: Record<string, any>, headers?: Record<string, any>): Promise<any>
+    get(url: string, params: Record<string, any>, headers?: Record<string, any>): Promise<any>
+    cookies: Record<string, any>
+    api: AxiosInstance
+    getCookies: () => Record<string, any>
+}
 
 export interface asyncDataConfig {
     store: Pinia
@@ -36,6 +47,7 @@ export interface GlobalStore {
     ISDEV: boolean
     ISPRE: boolean
     ISPROD: boolean
+    cookies: Record<string, any>
 }
 
 export interface ListConfig {

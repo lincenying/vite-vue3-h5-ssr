@@ -28,7 +28,6 @@ const { globalStore } = useGlobal()
 const init = async () => {
     setTimeout(() => {
         globalStore.setGlobalLoading(false)
-        // toggleneedLogin(true)
     }, 200)
 }
 

@@ -2,9 +2,9 @@ import axios from 'axios'
 import qs from 'qs'
 import md5 from 'md5'
 import config from './config-server'
-import type { anyObject } from '@/types'
+import type { ApiServerReturn } from '@/types'
 
-const objToStr = (cookies: anyObject) => {
+const objToStr = (cookies: Record<string, string | number | boolean>) => {
     if (!cookies) return ''
     let cookie = ''
     Object.keys(cookies).forEach(item => {
@@ -15,7 +15,7 @@ const objToStr = (cookies: anyObject) => {
 
 export default {}
 
-export const api = (cookies: anyObject) => {
+export const api = (cookies: Record<string, any>): ApiServerReturn => {
     return {
         cookies,
         api: axios.create({
@@ -29,7 +29,7 @@ export const api = (cookies: anyObject) => {
         getCookies() {
             return this.cookies
         },
-        async post(url: string, data: anyObject, headers = {}) {
+        async post(url, data, headers = {}) {
             const cookies = this.getCookies() || {}
             const username = cookies.username || ''
             const key = md5(url + JSON.stringify(data) + username)
@@ -49,7 +49,7 @@ export const api = (cookies: anyObject) => {
             if (config.cached && data.cache) config.cached.set(key, res_1)
             return res_1 && res_1.data
         },
-        async get(url: string, params: anyObject, headers = {}) {
+        async get(url, params, headers = {}) {
             const cookies = this.getCookies() || {}
             const username = cookies.username || ''
             const key = md5(url + JSON.stringify(params) + username)

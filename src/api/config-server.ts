@@ -4,7 +4,7 @@ import apiDomain from './url.js'
 
 const cached = false
 
-export default {
+const config = {
     api: `${apiDomain}/api/`,
     port: 8080,
     timeout: 30000,
@@ -14,3 +14,5 @@ export default {
         })) as any,
     cachedItem: {}
 }
+
+export default config

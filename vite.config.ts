@@ -11,7 +11,7 @@ import { viteMockServe } from 'vite-plugin-mock'
 import UnoCSS from 'unocss/vite'
 import { createHtmlPlugin } from 'vite-plugin-html'
 
-import VueMacros from 'unplugin-vue-macros/vite'
+import VueMacros from 'unplugin-vue-macros'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { VantResolver } from 'unplugin-vue-components/resolvers'
@@ -67,7 +67,7 @@ export default defineConfig(({ mode, command }) => {
                     }
                 }
             }),
-            VueMacros({
+            VueMacros.vite({
                 plugins: {
                     vue: vuePlugin({
                         template: {
@@ -107,8 +107,7 @@ export default defineConfig(({ mode, command }) => {
                     {
                         pinia: ['defineStore', 'storeToRefs'],
                         'vue-router': ['createRouter', 'createWebHashHistory'],
-                        vant: ['showDialog'],
-                        '@/utils': ['deepClone', 'deepMerge', '$is', 'showMsg']
+                        vant: ['showDialog']
                     }
                 ],
                 dts: 'src/auto-imports.d.ts',

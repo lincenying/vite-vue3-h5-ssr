@@ -13,8 +13,8 @@
     "generate": "vite build --ssrManifest --outDir dist/static && yarn build:server && node prerender",
     "start": "cross-env NODE_ENV=production node server.js",
     "debug": "node --inspect-brk server",
-    "lint": "eslint './src/**/*.{js,ts,tsx,vue}'",
-    "lint:fix": "eslint './src/**/*.{js,ts,tsx,vue}' --fix"
+    "lint": "eslint ./src --ext .vue,.ts,.tsx",
+    "lint:fix": "eslint ./src --ext .vue,.ts,.tsx --fix"
   },
   "dependencies": {
     "@vueuse/core": "^9.13.0",
@@ -23,6 +23,7 @@
     "core-js": "^3.29.1",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
+    "lcy-utils": "^0.2.2",
     "lodash": "^4.17.21",
     "md5": "^2.3.0",
     "pinia": "^2.0.33",
@@ -55,11 +56,11 @@
     "sass": "^1.60.0",
     "serve-static": "^1.15.0",
     "stylelint-config-lcy": "^1.15.10",
-    "typescript": "^5.0.2",
+    "typescript": "^5.0.3",
     "unocss": "^0.50.6",
     "unplugin-auto-import": "^0.15.2",
     "unplugin-vue-components": "^0.24.1",
-    "unplugin-vue-macros": "^1.11.1",
+    "unplugin-vue-macros": "^1.11.2",
     "vite": "^4.2.1",
     "vite-plugin-html": "^3.2.0",
     "vite-plugin-mock": "^2.9.6",
