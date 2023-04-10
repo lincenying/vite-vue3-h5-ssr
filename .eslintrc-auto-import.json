@@ -1,6 +1,5 @@
 {
   "globals": {
-    "$is": true,
     "Component": true,
     "ComponentPublicInstance": true,
     "ComputedRef": true,
@@ -32,8 +31,6 @@
     "customRef": true,
     "debouncedRef": true,
     "debouncedWatch": true,
-    "deepClone": true,
-    "deepMerge": true,
     "defineAsyncComponent": true,
     "defineComponent": true,
     "defineStore": true,
@@ -94,7 +91,6 @@
     "shallowReadonly": true,
     "shallowRef": true,
     "showDialog": true,
-    "showMsg": true,
     "storeToRefs": true,
     "syncRef": true,
     "syncRefs": true,
@@ -225,7 +221,6 @@
     "useResizeObserver": true,
     "useRoute": true,
     "useRouter": true,
-    "useSaveScroll": true,
     "useScreenOrientation": true,
     "useScreenSafeArea": true,
     "useScriptTag": true,

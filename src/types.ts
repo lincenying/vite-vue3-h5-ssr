@@ -3,10 +3,6 @@ import type { AxiosInstance } from 'axios'
 import type { Pinia } from 'pinia'
 import type { LocationQueryValue, RouteLocationNormalized } from 'vue-router'
 
-declare type Nullable<T> = T | null
-
-declare type NonNullable<T> = T extends null | undefined ? never : T
-
 export interface anyArray {
     [index: number]: any
 }

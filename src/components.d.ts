@@ -9,8 +9,8 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    Bar: typeof import('./components/Bar.jsx')['default']
-    Foo: typeof import('./components/Foo.jsx')['default']
+    Bar: typeof import('./components/Bar.tsx')['default']
+    Foo: typeof import('./components/Foo.tsx')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     VanButton: typeof import('vant/es')['Button']

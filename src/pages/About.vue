@@ -2,7 +2,7 @@
     <div>
         <h1 class="text-red">{{ msg }}</h1>
         <Foo />
-        <Bar page="我也是来自jsx"></Bar>
+        <Bar page="我也是来自tsx"></Bar>
         <div>
             <van-button type="primary" size="small" @click="handleDialog">点击打开</van-button>
         </div>

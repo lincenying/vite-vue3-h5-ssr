@@ -1,6 +1,7 @@
 build/*.js
 config/*.js
 public/static/**/*.js
+public/assets/**/*.js
 dist/**/*.js
 dist/**/*.css
 node_modules
