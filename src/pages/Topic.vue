@@ -3,7 +3,7 @@
         <div v-if="item.data">
             <h5>Topic page</h5>
             <h6>{{ item.data.c_title }}</h6>
-            <div class="content" v-html="item.data.c_content"></div>
+            <div class="content" v-html="item.data.c_content" />
         </div>
     </div>
 </template>
@@ -17,7 +17,7 @@ defineOptions({
         const { store, route, api } = payload
         const topicStore = useTopicStore(store)
         return topicStore.getTopic({ id: route.query.id }, api)
-    }
+    },
 })
 
 // pinia 状态管理 ===>
@@ -59,16 +59,15 @@ useHead({
     title: computed(() => (item.data && item.data.c_title) || ''),
     meta: [
         {
-            name: `description`,
-            content: computed(() => (item.data && item.data.c_title) || '')
-        }
-    ]
+            name: 'description',
+            content: computed(() => (item.data && item.data.c_title) || ''),
+        },
+    ],
 })
 
 onMounted(() => {
     const body = document.querySelector('.body')
-    if (body) {
+    if (body)
         body.scrollTo(0, 0)
-    }
 })
 </script>

@@ -20,10 +20,9 @@ defineOptions({
         const { store, route, api } = payload
         const topicStore = useTopicStore(store)
         return topicStore.getTopics({ path: route.path, page: 1 }, api)
-    }
+    },
 })
 
-// eslint-disable-next-line no-unused-vars
 const { route } = useGlobal()
 
 // pinia 状态管理 ===>
@@ -67,15 +66,15 @@ useHead({
     title: '首页',
     meta: [
         {
-            name: `description`,
-            content: '首页'
-        }
-    ]
+            name: 'description',
+            content: '首页',
+        },
+    ],
 })
 
 const [loading, toggleLoading] = useToggle(false)
 
-const getList = async (page: number) => {
+async function getList(page: number) {
     toggleLoading(true)
     topicStore.getTopics({ path: currPath, page })
     toggleLoading(false)
@@ -84,29 +83,28 @@ const getList = async (page: number) => {
 const { y } = useWindowScroll()
 
 onBeforeUnmount(() => {
-    console.log(`Home onBeforeUnmount`)
+    console.log('Home onBeforeUnmount')
     ls.set(currPath, y.value)
     const body = document.querySelector('.body')
-    if (body) {
+    if (body)
         ls.set(currPath, body.scrollTop)
-    }
 })
 onActivated(() => {
-    console.log(`Home onActivated`)
+    console.log('Home onActivated')
 })
 
 onMounted(() => {
-    console.log(`Home onMounted`)
+    console.log('Home onMounted')
     if (lists.path === '') {
         getList(1)
-    } else {
+    }
+    else {
         const scrollTop = ls.get(currPath)
         ls.remove(currPath)
         // window.scrollTo(0, scrollTop)
         const body = document.querySelector('.body')
-        if (body) {
+        if (body)
             body.scrollTo(0, scrollTop)
-        }
     }
 })
 </script>

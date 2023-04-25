@@ -4,10 +4,11 @@ import md5 from 'md5'
 import config from './config-server'
 import type { ApiServerReturn } from '@/types'
 
-const objToStr = (cookies: Record<string, string | number | boolean>) => {
-    if (!cookies) return ''
+function objToStr(cookies: Record<string, string | number | boolean>) {
+    if (!cookies)
+        return ''
     let cookie = ''
-    Object.keys(cookies).forEach(item => {
+    Object.keys(cookies).forEach((item) => {
         cookie += `${item}=${cookies[item]}; `
     })
     return cookie
@@ -15,16 +16,16 @@ const objToStr = (cookies: Record<string, string | number | boolean>) => {
 
 export default {}
 
-export const api = (cookies: Record<string, any>): ApiServerReturn => {
+export function api(cookies: Record<string, any>): ApiServerReturn {
     return {
         cookies,
         api: axios.create({
             baseURL: config.api,
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
-                cookie: objToStr(cookies)
+                'cookie': objToStr(cookies),
             },
-            timeout: config.timeout
+            timeout: config.timeout,
         }),
         getCookies() {
             return this.cookies
@@ -43,10 +44,11 @@ export const api = (cookies: Record<string, any>): ApiServerReturn => {
                 data: qs.stringify(data),
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-                    ...headers
-                }
+                    ...headers,
+                },
             })
-            if (config.cached && data.cache) config.cached.set(key, res_1)
+            if (config.cached && data.cache)
+                config.cached.set(key, res_1)
             return res_1 && res_1.data
         },
         async get(url, params, headers = {}) {
@@ -62,12 +64,13 @@ export const api = (cookies: Record<string, any>): ApiServerReturn => {
                 url,
                 params,
                 headers: {
-                    ...headers
-                }
-            }).then(res => {
-                if (config.cached && params.cache) config.cached.set(key, res)
+                    ...headers,
+                },
+            }).then((res) => {
+                if (config.cached && params.cache)
+                    config.cached.set(key, res)
                 return res && res.data
             })
-        }
+        },
     }
 }

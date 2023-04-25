@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import type { AxiosInstance } from 'axios'
 import type { Pinia } from 'pinia'
 import type { LocationQueryValue, RouteLocationNormalized } from 'vue-router'

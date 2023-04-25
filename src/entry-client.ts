@@ -14,21 +14,21 @@ router.isReady().then(() => {
             return diffed || (diffed = from.matched[i] !== c)
         })
 
-        if (!activated.length) return false
+        if (!activated.length)
+            return false
 
         await Promise.all(
-            activated.map(c => {
-                if ((c.components?.default as any).asyncData) {
+            activated.map((c) => {
+                if ((c.components?.default as any).asyncData)
                     return (c.components?.default as any).asyncData({ store, route: to })
-                }
+
                 return true
-            })
+            }),
         )
     })
     app.mount('#app')
     console.log('client router ready')
 })
 
-if (window.__INITIAL_STATE__) {
+if (window.__INITIAL_STATE__)
     store.state.value = window.__INITIAL_STATE__
-}

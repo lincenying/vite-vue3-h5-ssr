@@ -8,7 +8,7 @@ const useStore = defineStore('globalStore', () => {
         ISDEV: import.meta.env.VITE_APP_ENV === 'development',
         ISPRE: import.meta.env.VITE_APP_ENV === 'pre-release',
         ISPROD: import.meta.env.VITE_APP_ENV === 'production',
-        cookies: {}
+        cookies: {},
     })
 
     const setGlobalLoading = (payload: boolean) => {
@@ -25,10 +25,11 @@ const useStore = defineStore('globalStore', () => {
         ...toRefs(state),
         setGlobalLoading,
         setRouterLoading,
-        setCookies
+        setCookies,
     }
 })
 
 export default useStore
 
-if (import.meta.hot) import.meta.hot.accept(acceptHMRUpdate(useStore as any, import.meta.hot))
+if (import.meta.hot)
+    import.meta.hot.accept(acceptHMRUpdate(useStore as any, import.meta.hot))

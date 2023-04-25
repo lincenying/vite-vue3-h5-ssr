@@ -1,5 +1,3 @@
-import type { MockMethod } from 'vite-plugin-mock'
-
 interface requestParams {
     method: string
     body: any
@@ -23,7 +21,7 @@ export default [
              * Null
              */
             /* 返回数据
-             {
+            {
                 code: 200, // 状态码, 200正常, 401未登录, 其他为异常
                 message: 'ok', // 异常时抛出的错误信息
                 data: array = [{
@@ -33,7 +31,7 @@ export default [
                     title: string = '标题',
                     date: string = '日期;
                 }, ]
-             }
+            }
              */
             console.log('query.id :>> ', query.id)
             return {
@@ -41,19 +39,16 @@ export default [
                 message: 'ok',
                 data: Array.from({ length: 10 }, () => ({
                     title: '@csentence',
-                    date: '@date("yyyy-MM-dd")'
-                }))
+                    date: '@date("yyyy-MM-dd")',
+                })),
             }
-        }
+        },
     },
     {
         // 左下
         url: `/${baseApi}/index/getLeftBottom`,
         method: 'get',
-        response: (request: requestParams) => {
-            // @ts-ignore
-            // eslint-disable-next-line no-unused-vars
-            const query = request?.query
+        response: (_request: requestParams) => {
             /* 请求参数-GET
              * id: id
              */
@@ -62,7 +57,7 @@ export default [
              */
             /* 返回数据
             /* 返回数据
-             {
+            {
                 code: 200, // 状态码, 200正常, 401未登录, 其他为异常
                 message: 'ok', // 异常时抛出的错误信息
                 data: object = {
@@ -71,7 +66,7 @@ export default [
                     county: [number,number, ...] = '县级数据',
                     township: [number,number, ...] = '乡级数据'
                 }
-             }
+            }
              */
             return {
                 code: 200,
@@ -80,19 +75,16 @@ export default [
                     'x|5': ['@cword(3, 3)'],
                     'city|5': ['@integer(60, 100)'],
                     'county|5': ['@integer(60, 100)'],
-                    'township|5': ['@integer(60, 100)']
-                }
+                    'township|5': ['@integer(60, 100)'],
+                },
             }
-        }
+        },
     },
     {
         // 右上
         url: `/${baseApi}/index/getRightTop`,
         method: 'get',
-        response: (request: requestParams) => {
-            // @ts-ignore
-            // eslint-disable-next-line no-unused-vars
-            const query = request?.query
+        response: (_request: requestParams) => {
             /* 请求参数-GET
              * id: id
              */
@@ -100,31 +92,28 @@ export default [
              * Null
              */
             /* 返回数据
-             {
+            {
                 code: 200, // 状态码, 200正常, 401未登录, 其他为异常
                 message: 'ok', // 异常时抛出的错误信息
                 data: object = {
                     usage: number = '使用率'
                 }
-             }
+            }
              */
             return {
                 code: 200,
                 message: 'ok',
                 data: {
-                    usage: '@integer(10, 100)'
-                }
+                    usage: '@integer(10, 100)',
+                },
             }
-        }
+        },
     },
     {
         // 右下
         url: `/${baseApi}/index/getRightBottom`,
         method: 'get',
-        response: (request: requestParams) => {
-            // @ts-ignore
-            // eslint-disable-next-line no-unused-vars
-            const query = request?.query
+        response: (_request: requestParams) => {
             /* 请求参数-GET
              * id: id
              */
@@ -132,7 +121,7 @@ export default [
              * Null
              */
             /* 返回数据
-             {
+            {
                 code: 200, // 状态码, 200正常, 401未登录, 其他为异常
                 message: 'ok', // 异常时抛出的错误信息
                 data: object = {
@@ -142,7 +131,7 @@ export default [
                     memory_usage_peak: number = '内存使用率峰值'
                     storage_usage_s: number = '存储使用率'
                 }
-             }
+            }
              */
             return {
                 code: 200,
@@ -152,19 +141,16 @@ export default [
                     vcpu_usage_peak: '@integer(60, 100)',
                     vmemory_usage_average: '@integer(60, 100)',
                     memory_usage_peak: '@integer(60, 100)',
-                    storage_usage_s: '@integer(60, 100)'
-                }
+                    storage_usage_s: '@integer(60, 100)',
+                },
             }
-        }
+        },
     },
     {
         // 中间
         url: `/${baseApi}/index/getCenter`,
         method: 'get',
-        response: (request: requestParams) => {
-            // @ts-ignore
-            // eslint-disable-next-line no-unused-vars
-            const query = request?.query
+        response: (_request: requestParams) => {
             /* 请求参数-GET
              * id: id
              */
@@ -194,18 +180,16 @@ export default [
                     host_machine: '@integer(60, 100)',
                     tier1_tenant: '@integer(60, 100)',
                     big_data_server: '@integer(60, 100)',
-                    big_data_cluster: '@integer(60, 100)'
-                }
+                    big_data_cluster: '@integer(60, 100)',
+                },
             }
-        }
+        },
     },
     {
         // 租户总览
         url: `/${baseApi}/index/tenantOverview`,
         method: 'get',
         response: (request: requestParams) => {
-            // @ts-ignore
-            // eslint-disable-next-line no-unused-vars
             const query = request?.query
             /* 请求参数-GET
              * page: number = 分页
@@ -245,10 +229,10 @@ export default [
                         id: (page - 1) * pageSize + index + 1,
                         date: '@date',
                         name: '@cname()',
-                        address: '@city()'
-                    }))
-                }
+                        address: '@city()',
+                    })),
+                },
             }
-        }
-    }
-] as MockMethod[]
+        },
+    },
+]

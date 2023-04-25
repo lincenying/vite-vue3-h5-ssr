@@ -1,8 +1,8 @@
 <template>
     <div class="main">
         <div class="header">
-            <router-link :to="`/`">HOME</router-link>
-            <router-link :to="`/about`">ABOUT</router-link>
+            <router-link to="/">HOME</router-link>
+            <router-link to="/about">ABOUT</router-link>
         </div>
         <div class="body">
             <router-view v-slot="{ Component }">
@@ -14,10 +14,9 @@
 
 <script setup lang="ts">
 defineOptions({
-    name: 'app-root'
+    name: 'app-root',
 })
 
-// eslint-disable-next-line no-unused-vars
 const { globalStore } = useGlobal()
 
 // pinia 状态管理 ===>
@@ -25,7 +24,7 @@ const { globalStore } = useGlobal()
 // const tmpCount = computed(() => globalStore.counter)
 // pinia 状态管理 <===
 
-const init = async () => {
+async function init() {
     setTimeout(() => {
         globalStore.setGlobalLoading(false)
     }, 200)
