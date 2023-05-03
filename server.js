@@ -1,4 +1,3 @@
-// @ts-check
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -10,16 +9,11 @@ import { createProxyMiddleware } from 'http-proxy-middleware'
 
 const isTest = process.env.NODE_ENV === 'test' || !!process.env.VITE_TEST_BUILD
 
-// @ts-expect-error 111
 export async function createServer(root = process.cwd(), isProd = process.env.NODE_ENV === 'production', hmrPort) {
     const __dirname = path.dirname(fileURLToPath(import.meta.url))
-    // @ts-expect-error 111
     const resolve = p => path.resolve(__dirname, p)
-
     const indexProd = isProd ? fs.readFileSync(resolve('dist/client/index.html'), 'utf-8') : ''
-
     const manifest = isProd ? JSON.parse(fs.readFileSync(resolve('dist/client/ssr-manifest.json'), 'utf-8')) : {}
-
     const app = express()
 
     /**
@@ -49,7 +43,6 @@ export async function createServer(root = process.cwd(), isProd = process.env.NO
         app.use(vite.middlewares)
     }
     else {
-        // @ts-expect-error 111
         app.use((await import('compression')).default())
         app.use(
             '/api',
@@ -75,7 +68,7 @@ export async function createServer(root = process.cwd(), isProd = process.env.NO
     app.use(cookieParser())
 
     app.set('views', path.join(__dirname, 'dist'))
-    // @ts-expect-error 111
+
     app.engine('.html', ejs.__express)
     app.set('view engine', 'ejs')
 
@@ -106,16 +99,12 @@ export async function createServer(root = process.cwd(), isProd = process.env.NO
             res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
         }
         catch (e) {
-            // @ts-expect-error 111
             vite && vite.ssrFixStacktrace(e)
-            // @ts-expect-error 111
             console.log(e.stack)
-            // @ts-expect-error 111
             res.status(500).end(e.stack)
         }
     })
 
-    // @ts-expect-error 111
     return { app, vite }
 }
 
