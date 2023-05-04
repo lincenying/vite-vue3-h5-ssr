@@ -41,6 +41,7 @@
     "@types/cookie-parser": "^1.4.3",
     "@types/ejs": "^3.1.2",
     "@types/express": "^4.17.17",
+    "@types/node": "^18.16.3",
     "@vitejs/plugin-vue": "^4.2.1",
     "@vitejs/plugin-vue-jsx": "^3.0.1",
     "@vue/server-renderer": "^3.2.47",

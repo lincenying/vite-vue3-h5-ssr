@@ -71,7 +71,7 @@ export default defineConfig(({ mode, command }) => {
                     vue: vuePlugin({
                         template: {
                             compilerOptions: {
-                                isCustomElement: (tag) => ['def'].includes(tag),
+                                isCustomElement: tag => ['def'].includes(tag),
                             },
                         },
                     }),
@@ -99,9 +99,9 @@ export default defineConfig(({ mode, command }) => {
                     '@vueuse/core',
                     '@vueuse/head',
                     {
-                        pinia: ['defineStore', 'storeToRefs'],
+                        'pinia': ['defineStore', 'storeToRefs'],
                         'vue-router': ['createRouter', 'createWebHashHistory'],
-                        vant: ['showDialog'],
+                        'vant': ['showDialog'],
                     },
                 ],
                 dts: 'src/auto-imports.d.ts',
