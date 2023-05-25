@@ -14,7 +14,7 @@
 
 <script setup lang="ts">
 defineOptions({
-    name: 'app-root',
+    name: 'AppRoot',
 })
 
 const { globalStore } = useGlobal()

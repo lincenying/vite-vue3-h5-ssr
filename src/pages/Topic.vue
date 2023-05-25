@@ -12,7 +12,7 @@
 import type { asyncDataConfig } from '@/types'
 
 defineOptions({
-    name: 'topic',
+    name: 'Topic',
     asyncData(payload: asyncDataConfig) {
         const { store, route, api } = payload
         const topicStore = useTopicStore(store)
