@@ -1,11 +1,12 @@
 <template>
     <div>
         <h1 class="text-red">{{ msg }}</h1>
-        <Foo />
+        <Foo1 />
         <Bar page="我也是来自tsx" />
         <div>
             <van-button type="primary" size="small" @click="handleDialog">点击打开</van-button>
         </div>
+        <TheFooter />
     </div>
 </template>
 
@@ -25,7 +26,7 @@ useHead({
     ],
 })
 
-const Foo = defineAsyncComponent(() => import('../components/Foo').then(mod => mod.Foo))
+const Foo1 = defineAsyncComponent(() => import('../components/Foo').then(mod => mod.Foo))
 
 const msg = ref('About: SFC组件')
 
