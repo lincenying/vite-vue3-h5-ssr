@@ -9,17 +9,17 @@ export interface anyArray {
 export type Fn = (...args: any[]) => void
 
 export interface ApiClientReturn {
-    get(url: string, params: Record<string, any>, headers?: Record<string, any>): Promise<any>
-    post(url: string, data: Record<string, any>, headers?: Record<string, any>): Promise<any>
-    file(url: string, data: Record<string, any>, headers?: Record<string, any>): Promise<any>
+    get(url: string, params: Obj, headers?: Obj): Promise<any>
+    post(url: string, data: Obj, headers?: Obj): Promise<any>
+    file(url: string, data: Obj, headers?: Obj): Promise<any>
 }
 
 export interface ApiServerReturn {
-    post(url: string, data: Record<string, any>, headers?: Record<string, any>): Promise<any>
-    get(url: string, params: Record<string, any>, headers?: Record<string, any>): Promise<any>
-    cookies: Record<string, any>
+    post(url: string, data: Obj, headers?: Obj): Promise<any>
+    get(url: string, params: Obj, headers?: Obj): Promise<any>
+    cookies: Obj
     api: AxiosInstance
-    getCookies: () => Record<string, any>
+    getCookies: () => Obj
 }
 
 export interface asyncDataConfig {
@@ -42,7 +42,7 @@ export interface GlobalStore {
     ISDEV: boolean
     ISPRE: boolean
     ISPROD: boolean
-    cookies: Record<string, any>
+    cookies: Obj
 }
 
 export interface ListConfig {
