@@ -19,7 +19,7 @@ defineOptions({
     asyncData(payload: asyncDataConfig) {
         const { store, route, api } = payload
         const topicStore = useTopicStore(store)
-        return topicStore.getTopics({ path: route.path, page: 1 }, api)
+        return topicStore.getTopics({ path: route.fullPath, page: 1 }, api)
     },
 })
 
