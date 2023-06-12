@@ -9,13 +9,12 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import { viteMockServe } from '@lincy/vite-plugin-mock'
 
 import UnoCSS from 'unocss/vite'
-import { createHtmlPlugin } from 'vite-plugin-html'
+
+// import { createHtmlPlugin } from 'vite-plugin-html'
 
 import VueMacros from 'unplugin-vue-macros'
-import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite'
-import { VantResolver } from 'unplugin-vue-components/resolvers'
 
+import Components from './vite.config.components'
 import apiDomain from './src/api/url'
 
 export function ssrTransformCustomDir() {
@@ -55,17 +54,17 @@ export default defineConfig(({ mode, command }) => {
             },
         },
         plugins: [
-            createHtmlPlugin({
-                minify: false,
-                inject: {
-                    data: {
-                        VITE_APP_ENV: process.env.VITE_APP_ENV,
-                        VITE_APP_API_DOMAIN: process.env.VITE_APP_API_DOMAIN,
-                        VITE_APP_API: process.env.VITE_APP_API,
-                        MODE: mode,
-                    },
-                },
-            }),
+            // createHtmlPlugin({
+            //     minify: false,
+            //     inject: {
+            //         data: {
+            //             VITE_APP_ENV: process.env.VITE_APP_ENV,
+            //             VITE_APP_API_DOMAIN: process.env.VITE_APP_API_DOMAIN,
+            //             VITE_APP_API: process.env.VITE_APP_API,
+            //             MODE: mode,
+            //         },
+            //     },
+            // }),
             VueMacros.vite({
                 plugins: {
                     vue: vuePlugin({
@@ -83,46 +82,7 @@ export default defineConfig(({ mode, command }) => {
                 enable: command === 'serve' && localMock,
                 logger: true,
             }),
-            AutoImport({
-                eslintrc: {
-                    enabled: true,
-                },
-                include: [
-                    /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
-                    /\.vue$/,
-                    /\.vue\?vue/, // .vue
-                    /\.md$/, // .md
-                ],
-                imports: [
-                    'vue',
-                    'vue-router',
-                    '@vueuse/core',
-                    '@vueuse/head',
-                    {
-                        'pinia': ['defineStore', 'storeToRefs'],
-                        'vue-router': ['createRouter', 'createWebHashHistory'],
-                        'vant': ['showDialog'],
-                    },
-                ],
-                dts: 'src/auto-imports.d.ts',
-                dirs: ['src/components', 'src/composables', 'src/pinia'],
-
-                resolvers: [VantResolver()],
-                defaultExportByFilename: false,
-                vueTemplate: true,
-                cache: false,
-            }),
-            Components({
-                include: [
-                    /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
-                    /\.vue$/,
-                    /\.vue\?vue/, // .vue
-                    /\.md$/, // .md
-                ],
-                extensions: ['vue', 'tsx', 'jsx'],
-                resolvers: [VantResolver()],
-                dts: 'src/components.d.ts',
-            }),
+            ...Components(),
             UnoCSS({
                 /* options */
             }),
