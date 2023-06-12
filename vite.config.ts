@@ -2,20 +2,15 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import { defineConfig, loadEnv } from 'vite'
-
 import vuePlugin from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-
 import { viteMockServe } from '@lincy/vite-plugin-mock'
-
 import UnoCSS from 'unocss/vite'
-
-// import { createHtmlPlugin } from 'vite-plugin-html'
-
 import VueMacros from 'unplugin-vue-macros'
 
 import Components from './vite.config.components'
-import apiDomain from './src/api/url'
+import Build from './vite.config.build'
+import Css from './vite.config.css'
 
 export function ssrTransformCustomDir() {
     return {
@@ -33,38 +28,7 @@ export default defineConfig(({ mode, command }) => {
     const localMock = true
 
     const config = {
-        server: {
-            port: 7775,
-            host: '0.0.0.0',
-            hot: true,
-            disableHostCheck: true,
-            proxy: {
-                '/api': {
-                    target: apiDomain,
-                    changeOrigin: true,
-                    rewrite: (path: string) => path.replace(/^\/api/, '/api'),
-                },
-            },
-        },
-        css: {
-            preprocessorOptions: {
-                less: {
-                    javascriptEnabled: true,
-                },
-            },
-        },
         plugins: [
-            // createHtmlPlugin({
-            //     minify: false,
-            //     inject: {
-            //         data: {
-            //             VITE_APP_ENV: process.env.VITE_APP_ENV,
-            //             VITE_APP_API_DOMAIN: process.env.VITE_APP_API_DOMAIN,
-            //             VITE_APP_API: process.env.VITE_APP_API,
-            //             MODE: mode,
-            //         },
-            //     },
-            // }),
             VueMacros.vite({
                 plugins: {
                     vue: vuePlugin({
@@ -98,6 +62,8 @@ export default defineConfig(({ mode, command }) => {
                 // this package has unCompiled .vue files
             ],
         },
+        ...Build,
+        ...Css,
     }
     return config
 })
