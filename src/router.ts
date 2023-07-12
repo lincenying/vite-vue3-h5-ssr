@@ -1,19 +1,19 @@
 import { createRouter as _createRouter, createMemoryHistory, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
 
-// Auto generates routes from vue files under ./pages
+// Auto generates routes from vue files under ./views
 // https://vitejs.dev/guide/features.html#glob-import
-const pages = import.meta.glob('./pages/*.vue')
+const views = import.meta.glob('./views/*.vue')
 
 let routes: Array<RouteRecordRaw> = []
-Object.keys(pages).forEach((path: string) => {
-    const math = path.match(/\.\/pages(.*)\.vue$/)
+Object.keys(views).forEach((path: string) => {
+    const math = path.match(/\.\/views(.*)\.vue$/)
     if (math) {
         const name = math[1].toLowerCase()
         routes.push({
             name: name.replace('/', ''),
             path: name === '/home' ? '/' : name,
-            component: pages[path], // () => import('./pages/*.vue')
+            component: views[path], // () => import('./views/*.vue')
         })
     }
     return {}

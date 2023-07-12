@@ -1,9 +1,9 @@
 import { acceptHMRUpdate } from 'pinia'
 import api from '@/api/index-client'
-import type { ApiClientReturn, ApiConfig, ApiServerReturn, ArticleStore } from '@/types'
+import type { ApiConfig, Article, ArticleStore } from '@/types'
 
 export const useTopicStore = defineStore('topicStore', () => {
-    const state = reactive<ArticleStore>({
+    const state: ArticleStore = reactive({
         lists: {
             data: [],
             hasNext: 0,
@@ -17,17 +17,16 @@ export const useTopicStore = defineStore('topicStore', () => {
         },
     })
 
-    const getTopics = async (config: ApiConfig, $api?: ApiServerReturn | ApiClientReturn) => {
-        if (!import.meta.env.SSR)
-            $api = api
+    const getTopics = async (config: ApiConfig, $api?: ApiServer | ApiClient) => {
+        $api = $api || api
         if (state.lists.data.length > 0 && config.path === state.lists.path && config.page === 1)
             return
-        const { code, data } = await $api!.get('article/lists', { ...config, cache: true, perPage: 30 })
+        const { code, data } = await $api.get<ResDataLists<Article>>('article/lists', { ...config, cache: true, perPage: 30 })
 
         if (data && code === 200) {
             let _data
             if (config.page === 1)
-                _data = [].concat(data.data)
+                _data = [...data.data]
             else
                 _data = state.lists.data.concat(data.data)
 
@@ -40,12 +39,11 @@ export const useTopicStore = defineStore('topicStore', () => {
             }
         }
     }
-    const getTopic = async (config: ApiConfig, $api?: ApiServerReturn | ApiClientReturn) => {
-        if (!import.meta.env.SSR)
-            $api = api
+    const getTopic = async (config: ApiConfig, $api?: ApiServer | ApiClient) => {
+        $api = $api || api
         if (config.path === state.item.path)
             return
-        const { code, data } = await $api!.get(`article/detail/${config.id}`, { ...config, markdown: 1, cache: true })
+        const { code, data } = await $api.get<Article>(`article/detail/${config.id}`, { ...config, markdown: 1, cache: true })
         if (data && code === 200) {
             state.item = {
                 data,

@@ -1,32 +1,10 @@
-import type { AxiosInstance } from 'axios'
-import type { Pinia } from 'pinia'
-import type { LocationQueryValue, RouteLocationNormalized } from 'vue-router'
+import type { LocationQueryValue } from 'vue-router'
 
 export interface anyArray {
     [index: number]: any
 }
 
 export type Fn = (...args: any[]) => void
-
-export interface ApiClientReturn {
-    get(url: string, params: Obj, headers?: Obj): Promise<any>
-    post(url: string, data: Obj, headers?: Obj): Promise<any>
-    file(url: string, data: Obj, headers?: Obj): Promise<any>
-}
-
-export interface ApiServerReturn {
-    post(url: string, data: Obj, headers?: Obj): Promise<any>
-    get(url: string, params: Obj, headers?: Obj): Promise<any>
-    cookies: Obj
-    api: AxiosInstance
-    getCookies: () => Obj
-}
-
-export interface asyncDataConfig {
-    store: Pinia
-    route: RouteLocationNormalized
-    api?: any
-}
 
 export interface ApiConfig {
     id?: LocationQueryValue | LocationQueryValue[]

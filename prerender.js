@@ -11,8 +11,8 @@ const manifest = require('./dist/static/ssr-manifest.json')
 const template = fs.readFileSync(toAbsolute('dist/static/index.html'), 'utf-8')
 const { render } = require('./dist/server/entry-server.js')
 
-// determine routes to pre-render from src/pages
-const routesToPrerender = fs.readdirSync(toAbsolute('src/pages')).map((file) => {
+// determine routes to pre-render from src/views
+const routesToPrerender = fs.readdirSync(toAbsolute('src/views')).map((file) => {
     const name = file.replace(/\.vue$/, '').toLowerCase()
     return name === 'home' ? '/' : `/${name}`
 })

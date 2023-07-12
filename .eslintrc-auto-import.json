@@ -49,6 +49,7 @@
     "isReactive": true,
     "isReadonly": true,
     "isRef": true,
+    "loginMsgBox": true,
     "makeDestructurable": true,
     "markRaw": true,
     "nextTick": true,
@@ -93,6 +94,7 @@
     "shallowReadonly": true,
     "shallowRef": true,
     "showDialog": true,
+    "showMsg": true,
     "storeToRefs": true,
     "syncRef": true,
     "syncRefs": true,
@@ -103,6 +105,7 @@
     "toReactive": true,
     "toRef": true,
     "toRefs": true,
+    "toValue": true,
     "triggerRef": true,
     "tryOnBeforeMount": true,
     "tryOnBeforeUnmount": true,
@@ -293,7 +296,6 @@
     "watchThrottled": true,
     "watchTriggerable": true,
     "watchWithFilter": true,
-    "whenever": true,
-    "toValue": true
+    "whenever": true
   }
 }

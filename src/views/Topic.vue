@@ -9,8 +9,6 @@
 </template>
 
 <script setup lang="ts">
-import type { asyncDataConfig } from '@/types'
-
 defineOptions({
     name: 'Topic',
     asyncData(payload: asyncDataConfig) {

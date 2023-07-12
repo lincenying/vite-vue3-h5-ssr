@@ -1,55 +1,39 @@
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
+import type { ConfigEnv } from 'vite'
 import { defineConfig, loadEnv } from 'vite'
-import vuePlugin from '@vitejs/plugin-vue'
-import vueJsx from '@vitejs/plugin-vue-jsx'
 import { viteMockServe } from '@lincy/vite-plugin-mock'
 import UnoCSS from 'unocss/vite'
-import VueMacros from 'unplugin-vue-macros'
+import Progress from 'vite-plugin-progress'
+import Inspect from 'vite-plugin-inspect'
 
+import Macros from './vite.config.macros'
 import Components from './vite.config.components'
 import Build from './vite.config.build'
 import Css from './vite.config.css'
 
-export function ssrTransformCustomDir() {
-    return {
-        props: [],
-        needRuntime: true,
-    }
-}
-
 // https://vitejs.dev/config/
-export default defineConfig(({ mode, command }) => {
-    const __dirname = path.dirname(fileURLToPath(import.meta.url))
-
+export default defineConfig(({ mode, command }: ConfigEnv) => {
     process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
+    const __dirname = path.dirname(fileURLToPath(import.meta.url))
+    console.log(`当前编译环境: ${process.env.VITE_APP_ENV}`)
 
-    const localMock = true
-
-    const config = {
+    return {
+        base: './',
+        ...Build,
+        ...Css,
         plugins: [
-            VueMacros.vite({
-                plugins: {
-                    vue: vuePlugin({
-                        template: {
-                            compilerOptions: {
-                                isCustomElement: tag => ['def'].includes(tag),
-                            },
-                        },
-                    }),
-                    vueJsx: vueJsx(),
-                },
-            }),
+            ...Macros(),
+            ...Components(),
+            UnoCSS(),
             viteMockServe({
                 mockPath: 'mock',
-                enable: command === 'serve' && localMock,
+                enable: command === 'serve' || process.env.VITE_APP_ENV === 'test',
                 logger: true,
             }),
-            ...Components(),
-            UnoCSS({
-                /* options */
-            }),
+            Inspect(),
+            Progress(),
         ],
         resolve: {
             alias: {
@@ -59,11 +43,7 @@ export default defineConfig(({ mode, command }) => {
         ssr: {
             noExternal: [
                 'vant',
-                // this package has unCompiled .vue files
             ],
         },
-        ...Build,
-        ...Css,
     }
-    return config
 })

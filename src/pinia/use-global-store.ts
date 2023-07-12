@@ -2,7 +2,7 @@ import { acceptHMRUpdate } from 'pinia'
 import type { GlobalStore } from '@/types'
 
 const useStore = defineStore('globalStore', () => {
-    const state = reactive<GlobalStore>({
+    const state: GlobalStore = reactive({
         globalLoading: true,
         routerLoading: false,
         ISDEV: import.meta.env.VITE_APP_ENV === 'development',

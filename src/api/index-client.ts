@@ -3,7 +3,6 @@ import qs from 'qs'
 
 import type { AxiosResponse } from 'axios'
 import config from './config-client'
-import type { ApiClientReturn } from '@/types'
 
 axios.interceptors.request.use(
     (config) => {
@@ -43,11 +42,11 @@ function checkCode(res: any) {
     return res && res.data
 }
 
-type API = () => ApiClientReturn
+type API = () => ApiClient
 
 /**
  * axios Api 封装
- * @returns ApiClientReturn
+ * @returns ApiClient
  * @example
  * ```
  * get(url: '/api/url', params: {}, headers: {})

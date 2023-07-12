@@ -12,7 +12,6 @@
 
 <script setup lang="ts">
 import ls from 'store2'
-import type { asyncDataConfig } from '@/types'
 
 defineOptions({
     name: 'Home',

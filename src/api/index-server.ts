@@ -2,7 +2,6 @@ import axios from 'axios'
 import qs from 'qs'
 import md5 from 'md5'
 import config from './config-server'
-import type { ApiServerReturn } from '@/types'
 
 function objToStr(cookies: Record<string, string | number | boolean>) {
     if (!cookies)
@@ -16,7 +15,7 @@ function objToStr(cookies: Record<string, string | number | boolean>) {
 
 export default {}
 
-export function api(cookies: Record<string, any>): ApiServerReturn {
+export function api(cookies: Record<string, any>): ApiServer {
     return {
         cookies,
         api: axios.create({
