@@ -56,8 +56,8 @@ declare interface ApiClient {
 }
 
 declare interface ApiServer {
-    post<T = void>(url: string, data: Obj, headers?: Obj): Promise<ResponseData<T>>
     get<T = void>(url: string, params: Obj, headers?: Obj): Promise<ResponseData<T>>
+    post<T = void>(url: string, data: Obj, headers?: Obj): Promise<ResponseData<T>>
     cookies: Obj
     api: import('axios').AxiosInstance
     getCookies: () => Obj
