@@ -9,3 +9,4 @@ node_modules
 src/assets/iconfont/*
 components.d.ts
 auto-imports.d.ts
+*.code-snippets

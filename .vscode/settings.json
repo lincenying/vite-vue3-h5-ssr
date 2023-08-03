@@ -1,8 +1,6 @@
 {
-  "cSpell.words": [
-    "vant"
-  ],
-  "prettier.enable": false,
+  "cSpell.words": ["Vitesse"],
+  "prettier.enable": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
