@@ -22,6 +22,9 @@ declare type Obj = Record<string, any>
  */
 declare type ObjT<T> = Record<string, T>
 
+declare type AnyFn = (...args: any[]) => any;
+declare type PromiseFn = (...args: any[]) => Promise<void>;
+
 
 declare interface ResDataLists<T> {
     data: T[]
