@@ -1,6 +1,5 @@
 # vite-vue3-ssr
-vite vue3 ssr vue-router pinia meta
-官方demo + pinia + head管理 + asyncData
+vue3 H5端的ssr脚手架, 含asyncData里的xhr请求 (Vue3 + Vant + Pinia + Vite + TS + Unocss + SSR)
 
 ## Project setup
 ```bash
