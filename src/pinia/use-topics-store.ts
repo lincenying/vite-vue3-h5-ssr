@@ -24,7 +24,7 @@ export const useTopicStore = defineStore('topicStore', () => {
         const { code, data } = await $api.get<ResDataLists<Article>>('article/lists', { ...config, cache: true, perPage: 30 })
 
         if (data && code === 200) {
-            let _data
+            let _data: Article[]
             if (config.page === 1)
                 _data = [...data.data]
             else

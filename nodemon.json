@@ -1,7 +1,7 @@
 {
-    "restartable": "rs",
-    "ignore": [""],
-    "verbose": true,
-    "ext": "js",
-    "watch": ["./server.js"]
+  "restartable": "rs",
+  "ignore": [""],
+  "verbose": true,
+  "ext": "js",
+  "watch": ["./server.js"]
 }
