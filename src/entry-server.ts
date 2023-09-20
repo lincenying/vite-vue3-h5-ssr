@@ -4,8 +4,13 @@ import { renderHeadToString } from '@vueuse/head'
 
 import type { Request } from 'express'
 
+import type { RouteComponent, RouteLocationMatched } from 'vue-router'
 import { createApp } from './main'
 import { api } from './api/index-server'
+
+type CustomType = RouteComponent & {
+    asyncData?: AnyFn
+}
 
 function renderPreloadLink(file: string) {
     if (file.endsWith('.js'))
@@ -58,7 +63,7 @@ function replaceHtmlTag(html: string) {
 export async function render(url: string, manifest: Record<string, string[]>, req: Request) {
     const { app, router, store, head } = createApp()
 
-    // set the router to the desired URL before rendering
+    // 在渲染之前将路由器设置为所需的 URL
     router.push(url)
     await router.isReady()
 
@@ -66,9 +71,9 @@ export async function render(url: string, manifest: Record<string, string[]>, re
         // context.throw(404, "Not Found");
     }
 
-    // store.$api = store.state.$api = api(req && req.cookies)
-
-    const matchedComponents = router.currentRoute.value.matched.flatMap((record: any) => Object.values(record.components))
+    const matchedComponents: CustomType[] = router.currentRoute.value.matched.flatMap(
+        (record: RouteLocationMatched) => record.components ? Object.values(record.components) : {},
+    )
 
     const globalStore = useGlobalStore(store)
 
@@ -76,7 +81,7 @@ export async function render(url: string, manifest: Record<string, string[]>, re
 
     try {
         await Promise.all(
-            matchedComponents.map((component: any) => {
+            matchedComponents.map((component) => {
                 if (component.asyncData) {
                     return component.asyncData({
                         store,
@@ -93,10 +98,9 @@ export async function render(url: string, manifest: Record<string, string[]>, re
         console.log(error)
     }
 
-    // passing SSR context object which will be available via useSSRContext()
-    // @vitejs/plugin-vue injects code into a component's setup() that registers
-    // itself on ctx.modules. After the render, ctx.modules would contain all the
-    // components that have been instantiated during this render call.
+    // 传递可通过 useSSRContext() 使用的 SSR 上下文对象
+    // @vitejs/plugin-vue 将代码注入到组件的 setup() 中，该组件在 ctx.modules 上注册自身。
+    // 渲染后，ctx.modules 将包含在此渲染调用期间实例化的所有组件。
     const ctx: Record<string, any> = {}
     let html = await renderToString(app, ctx)
 
