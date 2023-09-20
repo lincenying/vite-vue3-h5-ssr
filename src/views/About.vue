@@ -1,10 +1,14 @@
 <template>
     <div>
-        <h1 class="text-red">{{ msg }}</h1>
+        <h1 class="text-red">
+            {{ msg }}
+        </h1>
         <Foo1 />
         <Bar page="我也是来自tsx" />
-        <div>
-            <van-button type="primary" size="small" @click="handleDialog">点击打开</van-button>
+        <div mt-10px>
+            <van-button type="primary" size="small" @click="handleDialog">
+                点击打开
+            </van-button>
         </div>
         <TheFooter />
     </div>

@@ -3,10 +3,14 @@
         <h5>Topics page</h5>
         <ul class="flex flex-col">
             <li v-for="(item, index) in lists.data" :key="index">
-                <router-link :to="`/topic?id=${item.c_id}`">{{ item.c_title }}</router-link>
+                <router-link :to="`/topic?id=${item.c_id}`">
+                    {{ item.c_title }}
+                </router-link>
             </li>
         </ul>
-        <van-button :loading="loading" type="primary" size="small" @click="getList(lists.page + 1)">下一页</van-button>
+        <van-button :loading="loading" type="primary" size="small" @click="getList(lists.page + 1)">
+            下一页
+        </van-button>
     </div>
 </template>
 

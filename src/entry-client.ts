@@ -1,8 +1,13 @@
+import type { RouteComponent } from 'vue-router'
 import { createApp } from './main'
 
 import 'uno.css'
 import 'vant/es/dialog/style'
 import '@/assets/scss/style.scss'
+
+type CustomType = RouteComponent & {
+    asyncData?: AnyFn
+}
 
 const { app, router, store } = createApp()
 
@@ -19,8 +24,9 @@ router.isReady().then(() => {
 
         await Promise.all(
             activated.map((c) => {
-                if ((c.components?.default as any).asyncData)
-                    return (c.components?.default as any).asyncData({ store, route: to })
+                const routeComponent = c.components?.default as CustomType
+                if (routeComponent && routeComponent.asyncData)
+                    return routeComponent.asyncData({ store, route: to })
 
                 return true
             }),

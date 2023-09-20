@@ -1,5 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
+import process from 'node:process'
 import { fileURLToPath } from 'node:url'
 import express from 'express'
 import cookieParser from 'cookie-parser'
@@ -28,8 +29,7 @@ export async function createServer(root = process.cwd(), isProd = process.env.NO
             server: {
                 middlewareMode: true,
                 watch: {
-                    // During tests we edit the files too fast and sometimes chokidar
-                    // misses change events, so enforce polling for consistency
+                    // 在测试过程中，编辑文件的速度太快，有时 chokidar 会错过更改事件，因此强制轮询以确保一致性
                     usePolling: true,
                     interval: 100,
                 },
@@ -39,7 +39,7 @@ export async function createServer(root = process.cwd(), isProd = process.env.NO
             },
             appType: 'custom',
         })
-        // use vite's connect instance as middleware
+        // 使用vite的connect实例作为中间件
         app.use(vite.middlewares)
     }
     else {
@@ -49,9 +49,8 @@ export async function createServer(root = process.cwd(), isProd = process.env.NO
             createProxyMiddleware({
                 target: 'http://php.mmxiaowu.com',
                 changeOrigin: true,
-                pathRewrite: {
-                    '^/api': '/api',
-                },
+                // pathRewrite: { '^/api': '/api' },
+                pathRewrite: path => path.replace(/^\/api/, '/api'),
             }),
         )
         app.use(
@@ -61,9 +60,9 @@ export async function createServer(root = process.cwd(), isProd = process.env.NO
         )
     }
 
-    // parse application/json
+    // 解析 application/json
     app.use(express.json())
-    // parse application/x-www-form-urlencoded
+    // 解析 application/x-www-form-urlencoded
     app.use(express.urlencoded({ extended: true }))
     app.use(cookieParser())
 
@@ -79,7 +78,7 @@ export async function createServer(root = process.cwd(), isProd = process.env.NO
 
             let template, render
             if (!isProd) {
-                // always read fresh template in dev
+                // 始终读取开发中的新模板
                 template = fs.readFileSync(resolve('index.html'), 'utf-8')
                 template = await vite.transformIndexHtml(url, template)
                 render = (await vite.ssrLoadModule('/src/entry-server.ts')).render
