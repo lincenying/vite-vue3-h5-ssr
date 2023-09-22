@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@lincy/base-config": "^0.0.2",
-    "@lincy/eslint-config": "^3.0.3",
+    "@lincy/eslint-config": "^3.0.5",
     "@lincy/stylelint-config": "^1.15.10",
     "@lincy/vite-plugin-mock": "^3.0.0",
     "@types/cookie-parser": "^1.4.4",
@@ -83,10 +83,10 @@
     }
   },
   "simple-git-hooks": {
-    "pre-commit": "pnpm lint-staged"
+    "pre-commit": "npx lint-staged"
   },
   "lint-staged": {
-    "*.{js,ts,tsx,vue}": [
+    "*.{[jt]s?(x),vue,md}": [
       "eslint --fix"
     ]
   }
