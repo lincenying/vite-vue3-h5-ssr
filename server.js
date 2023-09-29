@@ -112,9 +112,7 @@ if (process.env.NODE_ENV !== 'production')
     port = 17775
 
 if (!isTest) {
-    createServer().then(({ app }) =>
-        app.listen(port, () => {
-            console.log(`http://localhost:${port}`)
-        }),
-    )
+    createServer().then(({ app }) => app.listen(port, () => {
+        console.log(`http://localhost:${port}`)
+    }))
 }
