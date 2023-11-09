@@ -17,7 +17,7 @@ export default {
             input: {
                 main: path.resolve(__dirname, 'index.html'),
             },
-            external: /\.\/assets.*/,
+            external: /\.\/static.*/,
         },
     },
     server: {

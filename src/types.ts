@@ -24,8 +24,8 @@ export interface GlobalStore {
 }
 
 export interface ListConfig {
-    hasNext?: number
-    hasPrev?: number
+    hasNext?: number | boolean
+    hasPrev?: number | boolean
     path?: string
     page: number
     [propName: string]: any

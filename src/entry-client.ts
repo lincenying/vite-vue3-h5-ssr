@@ -3,7 +3,7 @@ import { createApp } from './main'
 
 import 'uno.css'
 import 'vant/es/dialog/style'
-import '@/assets/scss/style.scss'
+import './assets/scss/style.scss'
 
 type CustomType = RouteComponent & {
     asyncData?: AnyFn

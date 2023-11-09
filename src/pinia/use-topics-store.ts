@@ -26,15 +26,15 @@ export const useTopicStore = defineStore('topicStore', () => {
         if (data && code === 200) {
             let _data: Article[]
             if (config.page === 1)
-                _data = [...data.data]
+                _data = [...data.list]
             else
-                _data = state.lists.data.concat(data.data)
+                _data = state.lists.data.concat(data.list)
 
             state.lists = {
                 data: _data,
-                hasNext: data.current_page < data.last_page ? 0 : 1,
-                hasPrev: data.current_page > 1 ? 1 : 0,
-                page: data.current_page,
+                hasNext: data.hasNext,
+                hasPrev: data.hasPrev,
+                page: config.page || 1,
                 path: config.path,
             }
         }
