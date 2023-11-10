@@ -298,6 +298,17 @@
     "watchWithFilter": true,
     "whenever": true,
     "injectLocal": true,
-    "provideLocal": true
+    "provideLocal": true,
+    "ExtractDefaultPropTypes": true,
+    "ExtractPropTypes": true,
+    "ExtractPublicPropTypes": true,
+    "WritableComputedRef": true,
+    "getActiveHead": true,
+    "injectHead": true,
+    "useClipboardItems": true,
+    "useHeadSafe": true,
+    "useServerHead": true,
+    "useServerHeadSafe": true,
+    "useServerSeoMeta": true
   }
 }

@@ -1,6 +1,6 @@
 import { createSSRApp } from 'vue'
 import { createPinia } from 'pinia'
-import { createHead } from '@vueuse/head'
+import { createHead } from '@unhead/vue'
 
 import { createRouter } from './router'
 

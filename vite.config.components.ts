@@ -1,6 +1,7 @@
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { VantResolver } from 'unplugin-vue-components/resolvers'
+import { unheadVueComposablesImports } from '@unhead/vue'
 
 export default () => ([
     /**
@@ -21,12 +22,12 @@ export default () => ([
             'vue',
             'vue-router',
             '@vueuse/core',
-            '@vueuse/head',
             {
                 'pinia': ['defineStore', 'storeToRefs'],
                 'vue-router': ['createRouter', 'createWebHashHistory'],
                 'vant': ['showDialog'],
             },
+            unheadVueComposablesImports,
         ],
         dts: 'src/auto-imports.d.ts',
         dirs: ['src/components', 'src/composables', 'src/pinia'],

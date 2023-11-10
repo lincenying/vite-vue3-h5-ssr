@@ -1,6 +1,6 @@
 import { basename } from 'node:path'
 import { renderToString } from '@vue/server-renderer'
-import { renderHeadToString } from '@vueuse/head'
+import { renderSSRHead } from '@unhead/ssr'
 
 import type { Request } from 'express'
 
@@ -104,7 +104,7 @@ export async function render(url: string, manifest: Record<string, string[]>, re
     const ctx: Record<string, any> = {}
     let html = await renderToString(app, ctx)
 
-    const { headTags } = await renderHeadToString(head)
+    const { headTags } = await renderSSRHead(head)
 
     html += `<script>window.__INITIAL_STATE__ = ${replaceHtmlTag(JSON.stringify(store.state.value))}</script>`
 
