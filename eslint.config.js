@@ -6,16 +6,9 @@ const autoImport = JSON.parse(
     await readFile(new URL('./.eslintrc-auto-import.json', import.meta.url)),
 )
 
-const config = lincy(
-    undefined,
+const config = await lincy(
     {
-        plugins: {
-            '@unocss': plugin,
-        },
-        rules: {
-            ...plugin.configs.recommended.rules,
-            '@unocss/order': 'off',
-        },
+        unocss: true,
     },
     {
         languageOptions: {
