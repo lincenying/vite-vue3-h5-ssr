@@ -1,6 +1,17 @@
 # vite-vue3-ssr
 vue3 H5端的ssr脚手架, 含asyncData里的xhr请求 (Vue3 + Vant + Pinia + Vite + TS + Unocss + SSR)
 
+## Variations
+
+-   [vite-nuxt3](https://github.com/lincenying/vite-nuxt3) - Nuxt3 + Vite 入门模板
+-   [vite-uniapp-vue3](https://github.com/lincenying/vite-uniapp-vue3) - Uniapp3 + Vite 入门模板
+-   [vite-react-mobx-ssr](https://github.com/lincenying/vite-react-mobx-ssr) - React + Mobx + Vite + SSR 入门模板
+-   [vite-react-mobx](https://github.com/lincenying/vite-react-mobx) - React + Mobx + Vite 入门模板
+-   [vite-react-redux](https://github.com/lincenying/vite-react-redux) - React + Redux + Vite 入门模板
+-   [vite-vue3-h5-ssr](https://github.com/lincenying/vite-vue3-h5-ssr) - Vue3 + Vant + Vite + SSR 入门模板
+-   [vite-vue3-h5](https://github.com/lincenying/vite-vue3-h5) - Vue3 + Vant + Vite 入门模板
+-   [vite-vue3-admin](https://github.com/lincenying/vite-vue3-admin) - Vue3 + ElementPlus + Vite 管理后台入
+
 ## Project setup
 ```bash
 $ pnpm install
@@ -25,7 +36,6 @@ $ pnpm start
 ```bash
 $ pnpm lint
 ```
-
 
 ## 环境变量
 预留4套环境变量, 具体参数可查看根目录的 `.env.xxx`, 其中 `development` 为开发环境, `test, staging, production` 依次为 `测试环境, 预发布环境, 正式环境`
@@ -108,7 +118,6 @@ const topicStore = useTopicStore() // 客服端, 无需传Pinia实例
 const { lists } = $(storeToRefs(topicStore))
 ```
 其中`asyncData`方法为给node端使用, 最后两句为给浏览器端使用, 其中`asyncData`参数`payload`包含`store`(Pinia实例), `route`(当前路由数据), `api`(xhr封装), `req`(express的Request), 详见`entry-server.ts`
-
 
 即可, 因为配置了`unplugin-auto-import`, 所以根本无需要`import`, 你只需要直接把文件名改成驼峰的方式, 直接当函数使用即可
 注意: 直接用文件名当函数名, 只有代码是用`export default`导出时可用, 如果是用`export const xxx`, `export function xxx {}` 这样导出的, 那么直接使用xxx作为方法名即可
