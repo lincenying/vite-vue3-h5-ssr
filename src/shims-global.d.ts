@@ -13,11 +13,7 @@ declare type Arrayable<T> = T | T[]
 /**
  * 键为字符串, 值为 Any 的对象
  */
-declare type Obj = Record<string, any>
-/**
- * 键为字符串, 值为 T 的对象
- */
-declare type ObjT<T> = Record<string, T>
+declare type Objable<T = any> = Record<string, T>
 /**
  * Function
  */
@@ -57,15 +53,15 @@ declare interface ResponseData<T> {
     [propName: string]: any
 }
 declare interface ApiClient {
-    get<T = void>(url: string, params: Obj, headers?: Obj): Promise<ResponseData<T>>
-    post<T = void>(url: string, data: Obj, headers?: Obj): Promise<ResponseData<T>>
-    file<T = void>(url: string, data: Obj, headers?: Obj): Promise<ResponseData<T>>
+    get<T = void>(url: string, params: Objable, headers?: Objable): Promise<ResponseData<T>>
+    post<T = void>(url: string, data: Objable, headers?: Objable): Promise<ResponseData<T>>
+    file<T = void>(url: string, data: Objable, headers?: Objable): Promise<ResponseData<T>>
 }
 
 declare interface ApiServer {
-    get<T = void>(url: string, params: Obj, headers?: Obj): Promise<ResponseData<T>>
-    post<T = void>(url: string, data: Obj, headers?: Obj): Promise<ResponseData<T>>
-    cookies: Obj
+    get<T = void>(url: string, params: Objable, headers?: Objable): Promise<ResponseData<T>>
+    post<T = void>(url: string, data: Objable, headers?: Objable): Promise<ResponseData<T>>
+    cookies: Objable
     api: import('axios').AxiosInstance
     getCookies: () => Obj
 }

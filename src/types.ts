@@ -20,7 +20,7 @@ export interface GlobalStore {
     ISDEV: boolean
     ISPRE: boolean
     ISPROD: boolean
-    cookies: Obj
+    cookies: Objable
 }
 
 export interface ListConfig {

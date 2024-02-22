@@ -48,6 +48,7 @@
     "@unocss/eslint-plugin": "^0.58.4",
     "@vitejs/plugin-vue": "^5.0.3",
     "@vitejs/plugin-vue-jsx": "^3.1.0",
+    "@vue-macros/volar": "^0.18.11",
     "@vue/server-renderer": "^3.4.15",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
@@ -71,7 +72,8 @@
     "unplugin-vue-macros": "^2.7.10",
     "vite": "^5.0.12",
     "vite-plugin-inspect": "^0.8.3",
-    "vite-plugin-progress": "^0.0.7"
+    "vite-plugin-progress": "^0.0.7",
+    "vue-tsc": "^1.8.27"
   },
   "pnpm": {
     "peerDependencyRules": {
