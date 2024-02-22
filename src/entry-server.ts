@@ -112,5 +112,5 @@ export async function render(url: string, manifest: Record<string, string[]>, re
     // which we can then use to determine what files need to be preloaded for this
     // request.
     const preloadLinks = renderPreloadLinks(ctx.modules, manifest)
-    return [html, preloadLinks, headTags, store]
+    return { html, preloadLinks, headTags, store }
 }

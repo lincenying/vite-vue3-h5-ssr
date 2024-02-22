@@ -1,10 +1,16 @@
+import type { Pinia } from 'pinia'
 import type { LocationQueryValue } from 'vue-router'
 
 export interface anyArray {
     [index: number]: any
 }
 
-export type Fn = (...args: any[]) => void
+export interface RenderType {
+    html: string
+    preloadLinks: string
+    headTags: string
+    store: Pinia
+}
 
 export interface ApiConfig {
     id?: LocationQueryValue | LocationQueryValue[]
