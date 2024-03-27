@@ -10,11 +10,7 @@
       "@/*": ["./src/*"]
     },
     "resolveJsonModule": true,
-    "types": [
-      "node",
-      "vite/client",
-      "unplugin-vue-macros/macros-global"
-    ],
+    "types": [],
     "allowJs": true,
     "strict": true,
     "strictNullChecks": true,

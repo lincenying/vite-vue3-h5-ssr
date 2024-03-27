@@ -30,7 +30,7 @@ export default () => ([
             unheadVueComposablesImports,
         ],
         dts: 'src/auto-imports.d.ts',
-        dirs: ['src/components', 'src/composables', 'src/pinia'],
+        dirs: ['src/components', 'src/composables', 'src/stores'],
 
         resolvers: [VantResolver()],
         defaultExportByFilename: false,
