@@ -185,7 +185,7 @@ declare global {
   const useGamepad: typeof import('@vueuse/core')['useGamepad']
   const useGeolocation: typeof import('@vueuse/core')['useGeolocation']
   const useGlobal: typeof import('./composables/index')['useGlobal']
-  const useGlobalStore: typeof import('./pinia/use-global-store')['default']
+  const useGlobalStore: typeof import('./stores/use-global-store')['default']
   const useHead: typeof import('@unhead/vue')['useHead']
   const useHeadSafe: typeof import('@unhead/vue')['useHeadSafe']
   const useIdle: typeof import('@vueuse/core')['useIdle']
@@ -272,7 +272,7 @@ declare global {
   const useToNumber: typeof import('@vueuse/core')['useToNumber']
   const useToString: typeof import('@vueuse/core')['useToString']
   const useToggle: typeof import('@vueuse/core')['useToggle']
-  const useTopicStore: typeof import('./pinia/use-topics-store')['useTopicStore']
+  const useTopicStore: typeof import('./stores/use-topics-store')['useTopicStore']
   const useTransition: typeof import('@vueuse/core')['useTransition']
   const useUrlSearchParams: typeof import('@vueuse/core')['useUrlSearchParams']
   const useUserMedia: typeof import('@vueuse/core')['useUserMedia']
@@ -496,7 +496,7 @@ declare module 'vue' {
     readonly useGamepad: UnwrapRef<typeof import('@vueuse/core')['useGamepad']>
     readonly useGeolocation: UnwrapRef<typeof import('@vueuse/core')['useGeolocation']>
     readonly useGlobal: UnwrapRef<typeof import('./composables/index')['useGlobal']>
-    readonly useGlobalStore: UnwrapRef<typeof import('./pinia/use-global-store')['default']>
+    readonly useGlobalStore: UnwrapRef<typeof import('./stores/use-global-store')['default']>
     readonly useHead: UnwrapRef<typeof import('@unhead/vue')['useHead']>
     readonly useHeadSafe: UnwrapRef<typeof import('@unhead/vue')['useHeadSafe']>
     readonly useIdle: UnwrapRef<typeof import('@vueuse/core')['useIdle']>
@@ -583,7 +583,7 @@ declare module 'vue' {
     readonly useToNumber: UnwrapRef<typeof import('@vueuse/core')['useToNumber']>
     readonly useToString: UnwrapRef<typeof import('@vueuse/core')['useToString']>
     readonly useToggle: UnwrapRef<typeof import('@vueuse/core')['useToggle']>
-    readonly useTopicStore: UnwrapRef<typeof import('./pinia/use-topics-store')['useTopicStore']>
+    readonly useTopicStore: UnwrapRef<typeof import('./stores/use-topics-store')['useTopicStore']>
     readonly useTransition: UnwrapRef<typeof import('@vueuse/core')['useTransition']>
     readonly useUrlSearchParams: UnwrapRef<typeof import('@vueuse/core')['useUrlSearchParams']>
     readonly useUserMedia: UnwrapRef<typeof import('@vueuse/core')['useUserMedia']>
@@ -800,7 +800,7 @@ declare module '@vue/runtime-core' {
     readonly useGamepad: UnwrapRef<typeof import('@vueuse/core')['useGamepad']>
     readonly useGeolocation: UnwrapRef<typeof import('@vueuse/core')['useGeolocation']>
     readonly useGlobal: UnwrapRef<typeof import('./composables/index')['useGlobal']>
-    readonly useGlobalStore: UnwrapRef<typeof import('./pinia/use-global-store')['default']>
+    readonly useGlobalStore: UnwrapRef<typeof import('./stores/use-global-store')['default']>
     readonly useHead: UnwrapRef<typeof import('@unhead/vue')['useHead']>
     readonly useHeadSafe: UnwrapRef<typeof import('@unhead/vue')['useHeadSafe']>
     readonly useIdle: UnwrapRef<typeof import('@vueuse/core')['useIdle']>
@@ -887,7 +887,7 @@ declare module '@vue/runtime-core' {
     readonly useToNumber: UnwrapRef<typeof import('@vueuse/core')['useToNumber']>
     readonly useToString: UnwrapRef<typeof import('@vueuse/core')['useToString']>
     readonly useToggle: UnwrapRef<typeof import('@vueuse/core')['useToggle']>
-    readonly useTopicStore: UnwrapRef<typeof import('./pinia/use-topics-store')['useTopicStore']>
+    readonly useTopicStore: UnwrapRef<typeof import('./stores/use-topics-store')['useTopicStore']>
     readonly useTransition: UnwrapRef<typeof import('@vueuse/core')['useTransition']>
     readonly useUrlSearchParams: UnwrapRef<typeof import('@vueuse/core')['useUrlSearchParams']>
     readonly useUserMedia: UnwrapRef<typeof import('@vueuse/core')['useUserMedia']>
