@@ -65,7 +65,8 @@ useHead({
 
 onMounted(() => {
     const body = document.querySelector('.body')
-    if (body)
+    if (body) {
         body.scrollTo(0, 0)
+    }
 })
 </script>

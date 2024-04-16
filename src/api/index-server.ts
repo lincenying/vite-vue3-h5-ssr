@@ -4,8 +4,9 @@ import md5 from 'md5'
 import config from './config-server'
 
 function objToStr(cookies: Record<string, string | number | boolean>) {
-    if (!cookies)
+    if (!cookies) {
         return ''
+    }
     let cookie = ''
     Object.keys(cookies).forEach((item) => {
         cookie += `${item}=${cookies[item]}; `
@@ -46,8 +47,9 @@ export function api(cookies: Record<string, any>): ApiServer {
                     ...headers,
                 },
             })
-            if (config.cached && data.cache)
+            if (config.cached && data.cache) {
                 config.cached.set(key, res_1)
+            }
             return res_1 && res_1.data
         },
         async get(url, params, headers = {}) {
@@ -66,8 +68,9 @@ export function api(cookies: Record<string, any>): ApiServer {
                     ...headers,
                 },
             }).then((res) => {
-                if (config.cached && params.cache)
+                if (config.cached && params.cache) {
                     config.cached.set(key, res)
+                }
                 return res && res.data
             })
         },

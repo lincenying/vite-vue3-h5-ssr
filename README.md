@@ -111,8 +111,9 @@ const { lists } = $(storeToRefs(topicStore))
 let detail: NullAble<Article> = null
 async function getDetail() {
     const { code, data } = await $api.get<Article>('article/detail', {})
-    if (code === 200)
+    if (code === 200) {
         detail = data
+    }
 }
 
 getDetail()

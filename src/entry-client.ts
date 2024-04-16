@@ -19,14 +19,16 @@ router.isReady().then(() => {
             return diffed || (diffed = from.matched[i] !== c)
         })
 
-        if (!activated.length)
+        if (!activated.length) {
             return false
+        }
 
         await Promise.all(
             activated.map((c) => {
                 const routeComponent = c.components?.default as CustomType
-                if (routeComponent && routeComponent.asyncData)
+                if (routeComponent && routeComponent.asyncData) {
                     return routeComponent.asyncData({ store, route: to })
+                }
 
                 return true
             }),
@@ -36,5 +38,6 @@ router.isReady().then(() => {
     console.log('client router ready')
 })
 
-if (window.__INITIAL_STATE__)
+if (window.__INITIAL_STATE__) {
     store.state.value = window.__INITIAL_STATE__
+}

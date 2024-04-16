@@ -89,8 +89,9 @@ onBeforeUnmount(() => {
     console.log('Home onBeforeUnmount')
     ls.set(currPath, y.value)
     const body = document.querySelector('.body')
-    if (body)
+    if (body) {
         ls.set(currPath, body.scrollTop)
+    }
 })
 onActivated(() => {
     console.log('Home onActivated')
@@ -106,8 +107,9 @@ onMounted(() => {
         ls.remove(currPath)
         // window.scrollTo(0, scrollTop)
         const body = document.querySelector('.body')
-        if (body)
+        if (body) {
             body.scrollTo(0, scrollTop)
+        }
     }
 })
 </script>
