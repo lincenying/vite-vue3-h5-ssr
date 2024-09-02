@@ -158,7 +158,7 @@ export default [
              * Null
              */
             /* 返回数据
-             {
+            {
                 code: 200, // 状态码, 200正常, 401未登录, 其他为异常
                 message: 'ok', // 异常时抛出的错误信息
                 data: object = {
@@ -169,7 +169,7 @@ export default [
                     big_data_server: number = '大数据服务器'
                     big_data_cluster: number = '大数据集群'
                 }
-             }
+            }
              */
             return {
                 code: 200,
@@ -199,7 +199,7 @@ export default [
              * Null
              */
             /* 返回数据
-             {
+            {
                 code: 200, // 状态码, 200正常, 401未登录, 其他为异常
                 message: 'ok', // 异常时抛出的错误信息
                 data: object = {
@@ -213,7 +213,7 @@ export default [
                         address: string = '地址;
                     }]
                 }
-             }
+            }
              */
             console.log('query.page :>> ', query.page)
             const page = query.page || 1

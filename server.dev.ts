@@ -87,7 +87,8 @@ export async function createServer(root = process.cwd(), hmrPort?: number) {
         }
         catch (e: unknown) {
             const err = e as Error
-            vite && vite.ssrFixStacktrace(err)
+            if (vite)
+                vite.ssrFixStacktrace(err)
             console.log(err.stack)
             res.status(500).end(err.stack)
         }

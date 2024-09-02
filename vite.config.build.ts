@@ -1,12 +1,12 @@
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-import type { UserConfigExport } from 'vite'
+import type { UserConfig } from 'vite'
 import apiDomain from './src/api/url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-const config: UserConfigExport = {
+const config: UserConfig = {
     build: {
         target: 'es2018',
         cssTarget: 'chrome79',
