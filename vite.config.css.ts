@@ -1,5 +1,5 @@
-import viewport from 'postcss-px-to-viewport-8-plugin'
 import type { CSSOptions } from 'vite'
+import viewport from 'postcss-px-to-viewport-8-plugin'
 import { charsetRemoval, designHeight, designMultiple, designWidth, fontSize, maxWidth, maxWindow, minWidth, minWindow } from './src/design.config'
 
 const config: CSSOptions = {
@@ -15,6 +15,9 @@ const config: CSSOptions = {
                 $vmMaxWindow: ${maxWindow};
                 $vmFontSize: ${fontSize};
             `,
+            api: 'modern-compiler',
+            // 忽略scss global-builtin, import 提示3.0将删除的警告
+            silenceDeprecations: ['global-builtin', 'import'],
         },
     },
     postcss: {

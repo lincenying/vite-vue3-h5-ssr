@@ -1,4 +1,4 @@
-@use "sass:math";
+@use 'sass:math';
 
 :root {
     --design-width: #{$vmDesignWidth}px;
@@ -14,10 +14,10 @@ html {
     font-size: math.div($vmFontSize, $vmDesignWidth) * 100vw;
 
     // 同时，通过Media Queries 限制根元素最大最小值
+
     @media screen and (max-width: $vmMinWindow) {
         font-size: math.div($vmFontSize, $vmDesignWidth) * $vmMinWindow;
     }
-
     @media screen and (min-width: $vmMaxWindow) {
         --body-width: $vmMaxWindow;
 
@@ -192,7 +192,7 @@ body {
     height: 199.7%;
     pointer-events: none;
     border: 0 solid #e4e7ed;
-    content: " ";
+    content: ' ';
     transform: scale(0.5, 0.5);
     box-sizing: border-box;
     transform-origin: 0 0;

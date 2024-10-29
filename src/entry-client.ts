@@ -3,6 +3,7 @@ import { createApp } from './main'
 
 import 'uno.css'
 import 'vant/es/dialog/style'
+import './assets/scss/global/global.scss'
 import './assets/scss/style.scss'
 
 type CustomType = RouteComponent & {
