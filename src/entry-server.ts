@@ -1,12 +1,12 @@
+import type { Request } from 'express'
+import type { RouteComponent, RouteLocationMatched } from 'vue-router'
 import { basename } from 'node:path'
-import { renderToString } from '@vue/server-renderer'
+
 import { renderSSRHead } from '@unhead/ssr'
 
-import type { Request } from 'express'
-
-import type { RouteComponent, RouteLocationMatched } from 'vue-router'
-import { createApp } from './main'
+import { renderToString } from '@vue/server-renderer'
 import { api } from './api/index-server'
+import { createApp } from './main'
 
 type CustomType = RouteComponent & {
     asyncData?: AnyFn

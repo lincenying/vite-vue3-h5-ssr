@@ -1,15 +1,15 @@
+import type { RenderType } from '@/types'
 import fs from 'node:fs'
 import path from 'node:path'
 import process from 'node:process'
-import { fileURLToPath } from 'node:url'
 
-import { createServer as viteCreateServer } from 'vite'
+import { fileURLToPath } from 'node:url'
+import { UTC2Date } from '@lincy/utils'
+import cookieParser from 'cookie-parser'
 import express from 'express'
 import logger from 'morgan'
-import cookieParser from 'cookie-parser'
 import requestIp from 'request-ip'
-import { UTC2Date } from '@lincy/utils'
-import type { RenderType } from '@/types'
+import { createServer as viteCreateServer } from 'vite'
 
 export async function createServer(root = process.cwd(), hmrPort?: number) {
     const __dirname = path.dirname(fileURLToPath(import.meta.url))

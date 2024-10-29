@@ -2,7 +2,7 @@
 // Pre-render the app into static HTML.
 // run `yarn generate` and then `dist/static` can be served as a static site.
 
-import { readFileSync, readdirSync, unlinkSync, writeFileSync } from 'node:fs'
+import { readdirSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
 import manifest from './dist/client/.vite/ssr-manifest.json'

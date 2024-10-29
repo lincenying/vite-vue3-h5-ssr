@@ -1,7 +1,7 @@
-import axios from 'axios'
-import qs from 'qs'
-
 import type { AxiosResponse } from 'axios'
+import axios from 'axios'
+
+import qs from 'qs'
 import config from './config-client'
 
 axios.interceptors.request.use(

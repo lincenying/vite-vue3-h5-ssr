@@ -1,16 +1,16 @@
+import type { RenderType } from '@/types'
 import fs from 'node:fs'
 import path from 'node:path'
-import { fileURLToPath } from 'node:url'
 
-import express from 'express'
-import logger from 'morgan'
-import cookieParser from 'cookie-parser'
-import requestIp from 'request-ip'
-import compression from 'compression'
-import serveStatic from 'serve-static'
-import { createProxyMiddleware } from 'http-proxy-middleware'
+import { fileURLToPath } from 'node:url'
 import { UTC2Date } from '@lincy/utils'
-import type { RenderType } from '@/types'
+import compression from 'compression'
+import cookieParser from 'cookie-parser'
+import express from 'express'
+import { createProxyMiddleware } from 'http-proxy-middleware'
+import logger from 'morgan'
+import requestIp from 'request-ip'
+import serveStatic from 'serve-static'
 
 export async function createServer() {
     const __dirname = path.dirname(fileURLToPath(import.meta.url))

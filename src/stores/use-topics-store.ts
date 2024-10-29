@@ -1,6 +1,6 @@
+import type { ApiConfig, Article, ArticleStore } from '@/types'
 import { acceptHMRUpdate } from 'pinia'
 import api from '@/api/index-client'
-import type { ApiConfig, Article, ArticleStore } from '@/types'
 
 export const useTopicStore = defineStore('topicStore', () => {
     const state: ArticleStore = reactive({

@@ -1,5 +1,5 @@
-import { acceptHMRUpdate } from 'pinia'
 import type { GlobalStore } from '@/types'
+import { acceptHMRUpdate } from 'pinia'
 
 const useStore = defineStore('globalStore', () => {
     const state: GlobalStore = reactive({

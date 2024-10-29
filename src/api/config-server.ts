@@ -9,9 +9,9 @@ const config = {
     port: 8080,
     timeout: 30000,
     cached: (cached
-    && new LRUCache({
-        max: 1000,
-    })) as any,
+        && new LRUCache({
+            max: 1000,
+        })) as any,
     cachedItem: {},
 }
 
