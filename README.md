@@ -20,6 +20,34 @@ cd my-h5-ssr-app
 pnpm i # 如果你没有安装 pnpm，请运行：npm install -g pnpm
 ```
 
+### 开发环境
+
+```bash
+pnpm serve
+```
+
+### 生产环境
+
+```bash
+pnpm build
+```
+
+### 生产环境预览
+
+```bash
+pnpm start
+```
+
+### Lint 和修复文件
+
+```bash
+pnpm lint # eslint检测不修复
+pnpm lint:fix # eslint检测并修复
+pnpm lint:ts # ts 类型检测
+pnpm lint:css # css 检测并修复
+
+```
+
 ## 环境变量
 预留4套环境变量, 具体参数可查看根目录的 `.env.xxx`, 其中 `development` 为开发环境, `test, staging, production` 依次为 `测试环境, 预发布环境, 正式环境`
 根据自己需要, 启动/编译不同的环境
@@ -160,30 +188,6 @@ https://unocss.dev/
 根目录下的`.eslintrc.json`、`.stylelintrc.json`、`.prettier`内置了 lint 规则，帮助你规范地开发代码，有助于提高团队的代码质量和协作性，可以根据团队的规则进行修改
 注意: `prettier`只在编辑器层面, 在`eslint`中并没有添加`prettier`插件
 
-## Project setup
-```bash
-$ pnpm install
-```
+## License
 
-### Compiles and hot-reloads for development
-```bash
-$ pnpm serve
-```
-
-### Compiles and minifies for production
-```bash
-$ pnpm build
-```
-
-### Preview for production
-```bash
-$ pnpm start
-```
-
-### Lints and fixes files
-```bash
-$ pnpm lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+[MIT]
