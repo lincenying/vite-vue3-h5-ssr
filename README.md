@@ -12,6 +12,14 @@ vue3 H5端的ssr脚手架, 含asyncData里的xhr请求 (Vue3 + Vant + Pinia + Vi
 -   [vite-vue3-h5](https://github.com/lincenying/vite-vue3-h5) - Vue3 + Vant + Vite 入门模板
 -   [vite-vue3-admin](https://github.com/lincenying/vite-vue3-admin) - Vue3 + ElementPlus + Vite 管理后台入
 
+## 使用
+
+```bash
+npx degit lincenying/vite-vue3-h5-ssr my-h5-ssr-app
+cd my-h5-ssr-app
+pnpm i # 如果你没有安装 pnpm，请运行：npm install -g pnpm
+```
+
 ## 环境变量
 预留4套环境变量, 具体参数可查看根目录的 `.env.xxx`, 其中 `development` 为开发环境, `test, staging, production` 依次为 `测试环境, 预发布环境, 正式环境`
 根据自己需要, 启动/编译不同的环境
