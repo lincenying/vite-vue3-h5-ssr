@@ -6,7 +6,7 @@
         <Foo1 />
         <Bar page="我也是来自tsx" />
         <div mt-10px>
-            <van-button type="primary" size="small" @click="handleDialog">
+            <van-button :loading="loading" type="primary" size="small" @click="handleDialog">
                 点击打开
             </van-button>
         </div>
@@ -33,6 +33,8 @@ useHead({
 const Foo1 = defineAsyncComponent(() => import('../components/Foo').then(mod => mod.Foo))
 
 const msg = ref('About: SFC组件')
+
+const loading = ref(false)
 
 function handleDialog() {
     showDialog({

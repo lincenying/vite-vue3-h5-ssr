@@ -15,6 +15,7 @@
 </template>
 
 <script setup lang="ts">
+import { sleep } from '@lincy/utils'
 import ls from 'store2'
 
 defineOptions({
@@ -79,7 +80,8 @@ const [loading, toggleLoading] = useToggle(false)
 
 async function getList(page: number) {
     toggleLoading(true)
-    topicStore.getTopics({ path: currPath, page })
+    await sleep(1000)
+    await topicStore.getTopics({ path: currPath, page })
     toggleLoading(false)
 }
 

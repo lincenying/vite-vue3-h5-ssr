@@ -18,7 +18,7 @@
     "strictNullChecks": true,
     "noUnusedLocals": true,
     "importHelpers": true,
-    "outDir": "build",
+    "outDir": "dist",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
