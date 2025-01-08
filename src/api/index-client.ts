@@ -19,31 +19,38 @@ axios.interceptors.response.use(
 )
 
 function checkStatus(response: AxiosResponse) {
-    if (response && (response.status === 200 || response.status === 304)) {
-        return response
+    if ((response.status === 200 || response.status === 304)) {
+        return response.data
     }
+    if (response.status === 401) {
+        return {
+            code: 401,
+            info: response.statusText || response.toString(),
+            data: response.statusText || response.toString(),
+            message: `您还没有登录, 或者登录超时!`,
 
+        }
+    }
     return {
-        data: {
-            code: -404,
-            message: (response && response.statusText) || '未知错误',
-            data: '',
-        },
+        code: -404,
+        info: response.statusText || response.toString(),
+        data: response.statusText || response.toString(),
+        message: `接口返回数据错误, 错误代码: ${response.status || '未知'}`,
     }
 }
 
-function checkCode(res: any) {
-    if (res.data.code === -500) {
+function checkCode(data: ResponseData<any>) {
+    if (data.code === -500) {
         window.location.href = '/backend'
     }
-    else if (res.data.code === -400) {
+    else if (data.code === -400) {
         window.location.href = '/'
     }
-    else if (res.data.code !== 200) {
-        showMsg(res.data.message)
+    else if (data.code !== 200) {
+        showMsg(data.message)
     }
 
-    return res && res.data
+    return data
 }
 
 type API = () => ApiClient
