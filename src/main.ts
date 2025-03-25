@@ -1,4 +1,3 @@
-import { createHead } from '@unhead/vue'
 import { createPinia } from 'pinia'
 import { createSSRApp } from 'vue'
 
@@ -14,7 +13,6 @@ export function createApp() {
     const app = createSSRApp(App)
     const router = createRouter()
     const store = createPinia()
-    const head = createHead()
-    app.use(store).use(router).use(head)
-    return { app, router, store, head }
+    app.use(store).use(router)
+    return { app, router, store }
 }

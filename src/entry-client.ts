@@ -1,4 +1,5 @@
 import type { RouteComponent } from 'vue-router'
+import { createHead } from '@unhead/vue/client'
 import { createApp } from './main'
 
 import 'uno.css'
@@ -11,6 +12,7 @@ type CustomType = RouteComponent & {
 }
 
 const { app, router, store } = createApp()
+const head = createHead()
 
 // wait until router is ready before mounting to ensure hydration match
 router.isReady().then(() => {
@@ -35,6 +37,7 @@ router.isReady().then(() => {
             }),
         )
     })
+    app.use(head)
     app.mount('#app')
     console.log('client router ready')
 })

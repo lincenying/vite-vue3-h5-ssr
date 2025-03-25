@@ -318,6 +318,9 @@
     "useModel": true,
     "useTemplateRef": true,
     "usePreferredReducedTransparency": true,
-    "useSSRWidth": true
+    "useSSRWidth": true,
+    "createRef": true,
+    "onElementRemoval": true,
+    "useCountdown": true
   }
 }

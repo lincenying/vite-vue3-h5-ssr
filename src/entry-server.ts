@@ -2,7 +2,7 @@ import type { Request } from 'express'
 import type { RouteComponent, RouteLocationMatched } from 'vue-router'
 import { basename } from 'node:path'
 
-import { renderSSRHead } from '@unhead/ssr'
+import { createHead, renderSSRHead } from '@unhead/vue/server'
 
 import { renderToString } from '@vue/server-renderer'
 import { api } from './api/index-server'
@@ -68,7 +68,12 @@ function replaceHtmlTag(html: string) {
 }
 
 export async function render(url: string, manifest: Record<string, string[]>, req: Request) {
-    const { app, router, store, head } = createApp()
+    const { app, router, store } = createApp()
+    const head = createHead({
+        disableDefaults: true,
+    })
+
+    app.use(head)
 
     // 在渲染之前将路由器设置为所需的 URL
     router.push(url)
