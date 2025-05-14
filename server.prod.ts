@@ -71,7 +71,7 @@ export async function createServer() {
     // 解析 cookies 中间件
     app.use(cookieParser())
 
-    app.use('*', async (req, res) => {
+    app.use('/{*default}', async (req, res) => {
         try {
             // const url = req.originalUrl.replace('/test/', '/')
             const url = req.originalUrl

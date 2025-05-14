@@ -17,7 +17,7 @@ export const maxWidth = vmMaxWidth
 export const maxWindow = vmMaxWindow
 export const fontSize = vmFontSize
 
-export const charsetRemoval = function () {
+export function charsetRemoval() {
     return {
         postcssPlugin: 'internal:charset-removal',
         AtRule: {
