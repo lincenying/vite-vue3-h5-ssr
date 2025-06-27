@@ -35,6 +35,9 @@ const config: UserConfig = {
     server: {
         port: 7775,
         host: '0.0.0.0',
+        hmr: {
+            port: 57775,
+        },
         proxy: {
             '/api': {
                 target: apiDomain,
