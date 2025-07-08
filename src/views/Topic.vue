@@ -11,7 +11,7 @@
 <script setup lang="ts">
 defineOptions({
     name: 'Topic',
-    asyncData(payload: asyncDataConfig) {
+    asyncData(payload: AsyncDataConfig) {
         const { store, route, api } = payload
         const topicStore = useTopicStore(store)
         return topicStore.getTopic({ id: route.query.id, path: route.fullPath }, api)

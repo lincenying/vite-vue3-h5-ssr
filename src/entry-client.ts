@@ -8,7 +8,7 @@ import './assets/scss/global/global.scss'
 import './assets/scss/style.scss'
 
 type CustomType = RouteComponent & {
-    asyncData?: AnyFn
+    asyncData?: (ctx: AsyncDataConfig) => Promise<void | void[]>
 }
 
 const { app, router, store } = createApp()

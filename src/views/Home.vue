@@ -20,7 +20,7 @@ import ls from 'store2'
 
 defineOptions({
     name: 'Home',
-    asyncData(payload: asyncDataConfig) {
+    asyncData(payload: AsyncDataConfig) {
         const { store, route, api } = payload
         const topicStore = useTopicStore(store)
         return topicStore.getTopics({ path: route.fullPath, page: 1 }, api)

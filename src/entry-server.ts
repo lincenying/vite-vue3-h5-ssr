@@ -9,7 +9,7 @@ import { api } from './api/index-server'
 import { createApp } from './main'
 
 type CustomType = RouteComponent & {
-    asyncData?: AnyFn
+    asyncData?: (ctx: AsyncDataConfig) => Promise<void | void[]>
 }
 
 function renderPreloadLink(file: string) {

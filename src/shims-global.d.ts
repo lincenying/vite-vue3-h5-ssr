@@ -66,10 +66,11 @@ declare interface ApiServer {
     getCookies: () => Obj
 }
 
-declare interface asyncDataConfig {
+declare interface AsyncDataConfig {
     store: import('pinia').Pinia
     route: import('vue-router').RouteLocationNormalized
-    api?: UnfAble<ApiServer>
+    api?: ApiClient | ApiServer
+    req?: any
 }
 
 declare interface Window {

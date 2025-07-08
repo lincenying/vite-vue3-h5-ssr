@@ -34,6 +34,7 @@ const config: UserConfig = {
     },
     server: {
         port: 7775,
+        open: true,
         host: '0.0.0.0',
         hmr: {
             port: 57775,
