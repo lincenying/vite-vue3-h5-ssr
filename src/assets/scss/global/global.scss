@@ -37,10 +37,6 @@ body {
     background: #f4f4f4;
 }
 
-#app {
-    display: block !important;
-}
-
 .fixed-center {
     left: calc((100% - var(--body-width)) / 2) !important;
     width: 100%;

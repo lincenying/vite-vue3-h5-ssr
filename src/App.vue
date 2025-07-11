@@ -1,5 +1,5 @@
 <template>
-    <div class="main">
+    <div class="main" :style="ISDEV ? 'display: none' : ''">
         <div class="header">
             <router-link to="/">HOME</router-link>
             <router-link to="/about">ABOUT</router-link>
@@ -20,7 +20,7 @@ defineOptions({
 const { globalStore } = useGlobal()
 
 // pinia 状态管理 ===>
-// const { globalLoading } = storeToRefs(globalStore)
+const { ISDEV } = storeToRefs(globalStore)
 // const tmpCount = computed(() => globalStore.counter)
 // pinia 状态管理 <===
 
