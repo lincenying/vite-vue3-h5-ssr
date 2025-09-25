@@ -1,3 +1,5 @@
+import ls from 'store2'
+
 export function useGlobal() {
     const ins = getCurrentInstance()!
 
@@ -53,4 +55,32 @@ export function useLockFn(fn: AnyFn, autoUnlock: boolean | 'auto' = 'auto') {
             throw e
         }
     }
+}
+
+export function useSaveScroll() {
+    const route = useRoute()
+
+    onMounted(() => {
+        const body = document.querySelector(`.body`)
+        if (body) {
+            const scrollTop = ls.get(route.fullPath) || 0
+            body.scrollTo(0, scrollTop)
+            ls.remove(route.fullPath)
+        }
+    })
+
+    onBeforeRouteLeave((_to, from, next) => {
+        const body = document.querySelector('.body')
+        if (body) {
+            const scrollTop = body ? body.scrollTop : 0
+            if (scrollTop === 0) {
+                ls.remove(from.fullPath)
+            }
+            else {
+                ls.set(from.fullPath, scrollTop)
+            }
+        }
+
+        next()
+    })
 }

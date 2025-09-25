@@ -16,7 +16,6 @@
 
 <script setup lang="ts">
 import { sleep } from '@lincy/utils'
-import ls from 'store2'
 
 defineOptions({
     name: 'Home',
@@ -85,33 +84,16 @@ async function getList(page: number) {
     toggleLoading(false)
 }
 
-const { y } = useWindowScroll()
-
-onBeforeUnmount(() => {
-    console.log('Home onBeforeUnmount')
-    ls.set(currPath, y.value)
-    const body = document.querySelector('.body')
-    if (body) {
-        ls.set(currPath, body.scrollTop)
-    }
-})
 onActivated(() => {
     console.log('Home onActivated')
 })
+
+useSaveScroll()
 
 onMounted(() => {
     console.log('Home onMounted')
     if (lists.path === '') {
         getList(1)
-    }
-    else {
-        const scrollTop = ls.get(currPath)
-        ls.remove(currPath)
-        // window.scrollTo(0, scrollTop)
-        const body = document.querySelector('.body')
-        if (body) {
-            body.scrollTo(0, scrollTop)
-        }
     }
 })
 </script>
