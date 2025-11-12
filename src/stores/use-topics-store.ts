@@ -1,4 +1,5 @@
-import type { ApiConfig, Article, ArticleStore } from '@/types'
+import type { ApiConfig } from '@/types/global.types'
+import type { Article, ArticleStore } from '~/types/home.types'
 import { acceptHMRUpdate } from 'pinia'
 import api from '@/api/index-client'
 

@@ -1,4 +1,4 @@
-import type { RenderType } from '@/types'
+import type { RenderType } from '@/types/global.types'
 import fs from 'node:fs'
 import path from 'node:path'
 
