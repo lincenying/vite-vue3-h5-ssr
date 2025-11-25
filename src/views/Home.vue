@@ -8,9 +8,7 @@
                 </router-link>
             </li>
         </ul>
-        <van-button :loading="loading" type="primary" size="small" @click="getList(lists.page + 1)">
-            下一页
-        </van-button>
+        <van-button :loading="loading" type="primary" size="small" @click="getList(lists.page + 1)">下一页</van-button>
     </div>
 </template>
 
