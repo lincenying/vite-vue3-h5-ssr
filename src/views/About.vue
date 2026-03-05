@@ -3,6 +3,7 @@
         <h1 class="text-red">
             {{ msg }}
         </h1>
+        <EmptyComponents :msg="msg"></EmptyComponents>
         <Foo1 />
         <Bar page="我也是来自tsx" />
         <div mt-10px>
@@ -33,6 +34,10 @@ useHead({
 const Foo1 = defineAsyncComponent(() => import('../components/Foo').then(mod => mod.Foo))
 
 const msg = ref('About: SFC组件')
+
+setTimeout(() => {
+    msg.value = 'About: 动态更新'
+}, 3000)
 
 const loading = ref(false)
 
