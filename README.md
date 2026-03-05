@@ -160,8 +160,8 @@ getDetail()
 ```
 
 ## 开发环境配置proxy跨域
-```
-{
+```js
+const config = {
     server: {
         port: 7771,
         proxy: {

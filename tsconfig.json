@@ -28,7 +28,6 @@
   "vueCompilerOptions": {
     "target": 3, // or 2.7 for Vue 2
     "plugins": [
-      "@vue-macros/volar/define-props-refs",
       "@vue-macros/volar/define-props"
     ]
   }
