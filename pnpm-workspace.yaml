@@ -26,26 +26,25 @@ trustPolicyExclude:
   - semver
   - chokidar
   - cached-factory
-
 catalogs:
   dev:
-    '@lincy/unocss-base-config': ^2.4.2
-    '@vitejs/plugin-vue': ^6.0.4
-    '@vitejs/plugin-vue-jsx': ^5.1.4
+    '@lincy/unocss-base-config': ^2.6.2
+    '@vitejs/plugin-vue': ^6.0.5
+    '@vitejs/plugin-vue-jsx': ^5.1.5
     '@vue-macros/volar': ^3.1.2
-    baseline-browser-mapping: ^2.10.0
+    baseline-browser-mapping: ^2.10.8
     cross-env: ^10.1.0
-    lint-staged: ^16.3.2
+    lint-staged: ^16.4.0
     mockjs: ^1.1.0
     nodemon: ^3.1.14
     postcss: ^8.5.8
     postcss-px-to-viewport-8-plugin: ^1.2.5
-    sass-embedded: ^1.97.3
+    sass-embedded: ^1.98.0
     simple-git-hooks: ^2.13.1
     tsup: ^8.5.1
     tsx: ^4.21.0
     typescript: ^5.9.3
-    unocss: ^66.6.5
+    unocss: ^66.6.6
     unplugin-auto-import: ^21.0.0
     unplugin-vue-components: ^31.0.0
     vite: ^7.3.1
@@ -58,24 +57,24 @@ catalogs:
   lint:
     '@lincy/eslint-config': ^6.5.2
     '@lincy/stylelint-config': ^2.2.2
-    '@unocss/eslint-plugin': ^66.6.5
-    eslint: ^10.0.2
+    '@unocss/eslint-plugin': ^66.6.6
+    eslint: ^10.0.3
     stylelint: ^17.4.0
 
   prod:
     '@lincy/utils': ^0.7.3
-    '@unhead/ssr': ^2.1.10
-    '@unhead/vue': ^2.1.10
-    '@vue/server-renderer': ^3.5.29
+    '@unhead/ssr': ^2.1.12
+    '@unhead/vue': ^2.1.12
+    '@vue/server-renderer': ^3.5.30
     '@vueuse/core': ^14.2.1
     axios: ^1.13.6
     compression: ^1.8.1
     cookie-parser: ^1.4.7
-    ejs: ^4.0.1
+    ejs: ^5.0.1
     express: ^5.2.1
     http-proxy-middleware: ^3.0.5
     lodash: ^4.17.23
-    lru-cache: ^11.2.6
+    lru-cache: ^11.2.7
     md5: ^2.3.0
     morgan: ^1.10.1
     pinia: ^3.0.4
@@ -84,7 +83,7 @@ catalogs:
     serve-static: ^2.2.1
     store2: ^2.14.4
     vant: ^4.9.22
-    vue: ^3.5.29
+    vue: ^3.5.30
     vue-router: ^5.0.3
 
   types:
@@ -93,13 +92,12 @@ catalogs:
     '@types/ejs': ^3.1.5
     '@types/express': ^5.0.6
     '@types/morgan': ^1.9.10
-    '@types/node': ^25.3.3
+    '@types/node': ^25.5.0
     '@types/request-ip': ^0.0.41
-
 onlyBuiltDependencies:
+  - '@parcel/watcher'
   - better-sqlite3
   - vue-demi
-
 peerDependencyRules:
   ignoreMissing:
     - rollup

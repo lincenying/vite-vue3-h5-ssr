@@ -2,7 +2,7 @@
   "name": "vite-vue3-h5-ssr",
   "type": "module",
   "version": "3.0.0",
-  "packageManager": "pnpm@10.30.3",
+  "packageManager": "pnpm@10.32.1",
   "author": "lincenying <lincenying@qq.com>",
   "scripts": {
     "prepare[-del]": "npx simple-git-hooks",
