@@ -2,10 +2,9 @@
   "name": "vite-vue3-h5-ssr",
   "type": "module",
   "version": "3.0.0",
-  "packageManager": "pnpm@10.32.1",
+  "packageManager": "pnpm@11.2.2",
   "author": "lincenying <lincenying@qq.com>",
   "scripts": {
-    "prepare[-del]": "npx simple-git-hooks",
     "serve": "nodemon --watch ./server.dev.ts --exec tsx ./server.dev.ts",
     "build": "npm run build:client && npm run build:server && npm run build:server:entry",
     "build:client": "vite build --ssrManifest --outDir dist/client",
@@ -16,8 +15,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "lint:ts": "vue-tsc -b --noEmit",
-    "lint:css": "stylelint '**/*.{css,scss}' --fix",
-    "lint-staged": "lint-staged"
+    "lint:css": "stylelint '**/*.{css,scss}' --fix"
   },
   "dependencies": {
     "@lincy/utils": "catalog:prod",
@@ -62,13 +60,11 @@
     "baseline-browser-mapping": "catalog:dev",
     "cross-env": "catalog:dev",
     "eslint": "catalog:lint",
-    "lint-staged": "catalog:dev",
     "mockjs": "catalog:dev",
     "nodemon": "catalog:dev",
     "postcss": "catalog:dev",
     "postcss-px-to-viewport-8-plugin": "catalog:dev",
     "sass-embedded": "catalog:dev",
-    "simple-git-hooks": "catalog:dev",
     "stylelint": "catalog:lint",
     "tsup": "catalog:dev",
     "tsx": "catalog:dev",
@@ -82,14 +78,5 @@
     "vite-plugin-progress": "catalog:dev",
     "vue-macros": "catalog:dev",
     "vue-tsc": "catalog:dev"
-  },
-  "simple-git-hooks[-del]": {
-    "pre-commit": "npm run lint-staged"
-  },
-  "lint-staged[-del]": {
-    "*.{[jt]s?(x),vue,md}": [
-      "eslint --fix"
-    ],
-    "*.{css,scss}": "stylelint --fix --allow-empty-input"
   }
 }
